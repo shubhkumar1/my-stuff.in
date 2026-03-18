@@ -20,7 +20,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "my-stuff.in",
+  title: "mind-stuff.in",
   description: "A digital notebook for my journey.",
 };
 
