@@ -1,0 +1,97 @@
+@import "highlight.js/styles/github-dark-dimmed.css";
+
+/* Base ProseMirror Styles */
+.ProseMirror {
+    outline: none;
+}
+
+.ProseMirror p.is-editor-empty:first-child::before {
+    color: var(--text-secondary);
+    content: attr(data-placeholder);
+    float: left;
+    height: 0;
+    pointer-events: none;
+}
+
+/* Custom inline code */
+.ProseMirror code:not(pre code) {
+    background-color: var(--border);
+    color: var(--primary);
+    padding: 0.2em 0.4em;
+    border-radius: 0.25rem;
+}
+
+/* Tiptap Code Block Styles */
+.ProseMirror pre {
+    background-color: #0d1117; /* Highlighting code block with dark bg mostly looks better */
+    color: #c9d1d9;
+    font-family: 'JetBrains Mono', 'Fira Code', monospace;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    overflow-x: auto;
+    margin: 1.5rem 0;
+}
+
+.ProseMirror pre code {
+    color: inherit;
+    padding: 0;
+    background: none;
+    font-size: 0.875rem;
+}
+
+/* Custom Lists and Blockquotes */
+.ProseMirror ul,
+.ProseMirror ol {
+    padding: 0 1.25rem;
+    margin: 1.25rem 0;
+}
+
+.ProseMirror ul {
+    list-style-type: disc;
+}
+
+.ProseMirror ol {
+    list-style-type: decimal;
+}
+
+.ProseMirror ul p,
+.ProseMirror ol p {
+    margin-top: 0.25em;
+    margin-bottom: 0.25em;
+}
+
+.ProseMirror blockquote {
+    padding-left: 1rem;
+    border-left: 3px solid var(--border);
+    margin: 1.5rem 0;
+    color: var(--text-secondary);
+    font-style: italic;
+}
+
+.ProseMirror img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 0.5rem;
+}
+
+/* Image alignment via text-align attribute injected by Tiptap */
+.ProseMirror img[style*="text-align: center"],
+.prose img[style*="text-align: center"] {
+    display: block !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+}
+
+.ProseMirror img[style*="text-align: right"],
+.prose img[style*="text-align: right"] {
+    display: block !important;
+    margin-left: auto !important;
+    margin-right: 0 !important;
+}
+
+.ProseMirror img[style*="text-align: left"],
+.prose img[style*="text-align: left"] {
+    display: block !important;
+    margin-left: 0 !important;
+    margin-right: auto !important;
+}
