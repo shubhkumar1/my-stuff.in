@@ -58,7 +58,7 @@ const Navbar = () => {
                 </div>
 
                 {/* Logo (Center on mobile, Left on desktop) */}
-                <div className="flex flex-1 md:flex-none justify-center md:justify-start">
+                <div className="flex md:flex-none justify-center md:justify-start">
                     <Link
                         href="/"
                         className="text-xl font-serif font-bold text-foreground hover:text-primary transition"
