@@ -64,7 +64,7 @@ const Navbar = () => {
                         className="text-xl font-serif font-bold text-foreground hover:text-primary transition"
                         onClick={() => setIsMobileMenuOpen(false)}
                     >
-                        my-stuff<span className="text-primary">.in</span>
+                        mind-stuff<span className="text-primary">.in</span>
                     </Link>
                 </div>
 

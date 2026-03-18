@@ -28,7 +28,7 @@ export default async function Home() {
         <AnimatedSection className="flex flex-col items-center text-center mb-32 max-w-4xl mx-auto">
           <div className="inline-block p-1 rounded-full bg-gradient-to-tr from-primary/50 to-accent/50 mb-8 backdrop-blur-md">
             <div className="bg-card/80 rounded-full px-4 py-1.5 text-sm font-medium text-primary">
-              Welcome to My-Stuff.in 🚀
+              Welcome to mind-stuff.in 🚀
             </div>
           </div>
           <h1 className="text-5xl md:text-7xl font-sans font-black text-foreground mb-8 tracking-tight leading-tight flex flex-wrap justify-center gap-x-4">
@@ -37,7 +37,7 @@ export default async function Home() {
             <span>for my journey.</span>
           </h1>
           <p className="text-xl md:text-2xl text-text-secondary font-light leading-relaxed mb-10 text-balance">
-            My-Stuff.in is a simple space on the internet where I share my journey as an Indian UG student — the things I learn, build, explore, and sometimes mess up while figuring out life, tech, and studies.
+            mind-stuff.in is a simple space on the internet where I share my journey as an Indian UG student — the things I learn, build, explore, and sometimes mess up while figuring out life, tech, and studies.
           </p>
           <p className="text-lg md:text-xl text-gray-500 dark:text-gray-400 max-w-2xl text-balance">
             If you are also a student trying to learn new skills, discover useful tools, or stay updated with tech, then you’re at the right place. Think of this blog as a digital notebook where I document everything useful that can help other students too.
@@ -95,7 +95,7 @@ export default async function Home() {
               Why This Blog Exists <span className="text-2xl">✨</span>
             </h2>
             <p className="text-lg text-text-secondary mb-6 leading-relaxed">
-              Many students want to learn new things but don’t know where to start. I created My-Stuff.in to share real experiences instead of just theory.
+              Many students want to learn new things but don’t know where to start. I created mind-stuff.in to share real experiences instead of just theory.
             </p>
             <p className="text-lg font-medium text-foreground mb-4">Here you will find:</p>
             <ul className="space-y-3">
@@ -143,7 +143,7 @@ export default async function Home() {
             Let’s Learn & Build Together
           </h2>
           <p className="text-xl text-text-secondary mb-8 leading-relaxed">
-            My-Stuff.in is not just a blog — it’s a growing collection of ideas, experiments, and student resources. If you enjoy discovering new tools, learning practical skills, and seeing how a student builds things step by step, then stay around.
+            mind-stuff.in is not just a blog — it’s a growing collection of ideas, experiments, and student resources. If you enjoy discovering new tools, learning practical skills, and seeing how a student builds things step by step, then stay around.
           </p>
           <p className="text-2xl font-serif italic text-primary mb-10">
             "Because sometimes the best learning happens when we simply share our stuff."
