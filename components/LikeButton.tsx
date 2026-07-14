@@ -1,18 +1,27 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useSession, signIn } from "next-auth/react";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
 
 interface LikeButtonProps {
     blogId: string;
-    initialLikes?: number; // In a real app, pass this
+    initialLikes?: number;
+    hasLiked?: boolean;
 }
 
-const LikeButton = ({ blogId, initialLikes = 0 }: LikeButtonProps) => {
+const LikeButton = ({ blogId, initialLikes = 0, hasLiked = false }: LikeButtonProps) => {
     const { data: session } = useSession();
-    const [liked, setLiked] = useState(false);
+    const [liked, setLiked] = useState(hasLiked);
     const [likes, setLikes] = useState(initialLikes);
+
+    useEffect(() => {
+        setLiked(hasLiked);
+    }, [hasLiked]);
+
+    useEffect(() => {
+        setLikes(initialLikes);
+    }, [initialLikes]);
 
     const handleLike = async () => {
         if (!session) {
@@ -20,17 +29,28 @@ const LikeButton = ({ blogId, initialLikes = 0 }: LikeButtonProps) => {
             return;
         }
 
-        // Optimistic update
-        setLiked(!liked);
-        setLikes((prev) => (liked ? prev - 1 : prev + 1));
+        const currentLiked = liked;
+        const currentLikes = likes;
 
-        // Call API (implementation needed)
+        // Optimistic update
+        setLiked(!currentLiked);
+        setLikes((prev) => (currentLiked ? prev - 1 : prev + 1));
+
         try {
-            // await fetch('/api/likes', { ... })
+            const res = await fetch(`/api/blogs/${blogId}/like`, {
+                method: "POST",
+            });
+            if (!res.ok) {
+                throw new Error("Failed to like");
+            }
+            const data = await res.json();
+            setLikes(data.likesCount);
+            setLiked(data.liked);
         } catch (err) {
+            console.error(err);
             // Revert
-            setLiked(!liked);
-            setLikes((prev) => (liked ? prev + 1 : prev - 1));
+            setLiked(currentLiked);
+            setLikes(currentLikes);
         }
     };
 
@@ -38,7 +58,7 @@ const LikeButton = ({ blogId, initialLikes = 0 }: LikeButtonProps) => {
         <button
             onClick={handleLike}
             className={`flex items-center gap-2 px-4 py-2 rounded-full transition ${liked
-                    ? "bg-red-100 text-red-600 dark:bg-red-900 dark:text-red-200"
+                    ? "bg-red-100 text-red-600 dark:bg-red-900/30 dark:text-red-200"
                     : "bg-background text-text-secondary border border-border hover:bg-border"
                 }`}
         >

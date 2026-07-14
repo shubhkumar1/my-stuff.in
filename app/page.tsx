@@ -2,161 +2,219 @@ import connectDB from "@/lib/db";
 import Blog from "@/models/Blog";
 import BlogCard from "@/components/BlogCard";
 import { BlogPost } from "@/types";
-import { FaLaptopCode, FaBrain, FaHammer, FaBullhorn, FaArrowRight } from "react-icons/fa";
+import { FaBrain, FaCoins, FaDumbbell, FaRobot, FaArrowRight, FaBookOpen } from "react-icons/fa";
 import AnimatedSection from "@/components/AnimatedSection";
+import NewsletterForm from "@/components/NewsletterForm";
+import Link from "next/link";
+import Image from "next/image";
+import { format } from "date-fns";
 
 export const revalidate = 60; // Revalidate every minute
 
 async function getBlogs() {
-  await connectDB();
-  const blogs = await Blog.find().sort({ createdAt: -1 }).limit(10).lean();
-  return JSON.parse(JSON.stringify(blogs)) as BlogPost[];
+  try {
+    await connectDB();
+    const blogs = await Blog.find().sort({ createdAt: -1 }).limit(10).lean();
+    return JSON.parse(JSON.stringify(blogs)) as BlogPost[];
+  } catch (error) {
+    console.error("Failed to fetch blogs:", error);
+    return [];
+  }
 }
 
 export default async function Home() {
   const blogs = await getBlogs();
+  const featuredBlog = blogs[0];
+  const remainingBlogs = blogs.slice(1);
+
+  const featuredTitle = featuredBlog ? featuredBlog.title : "Clear Your Mind: The Power of 10-Minute Daily Journaling";
+  const featuredExcerpt = featuredBlog ? featuredBlog.excerpt : "Why writing down your thoughts for just ten minutes every morning can completely transform your mental focus, calm, and overall productivity throughout the day.";
+  const featuredSlug = featuredBlog ? `/blog/${featuredBlog.slug}` : "#explore-blogs";
 
   return (
     <main className="min-h-screen relative overflow-hidden bg-background">
-      {/* Abstract Animated Background Gradients */}
+      {/* Abstract Background Blur Orbs */}
       <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-primary/20 rounded-full blur-[120px] pointer-events-none" />
       <div className="absolute top-[40%] right-[-10%] w-[40%] h-[50%] bg-accent/20 rounded-full blur-[120px] pointer-events-none" />
       <div className="absolute bottom-[-10%] left-[20%] w-[30%] h-[30%] bg-primary/10 rounded-full blur-[120px] pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-6 sm:px-12 md:px-20 pt-24 pb-20 relative z-10">
+        
         {/* HERO SECTION */}
-        <AnimatedSection className="flex flex-col items-center text-center mb-32 max-w-4xl mx-auto">
-          <div className="inline-block p-1 rounded-full bg-gradient-to-tr from-primary/50 to-accent/50 mb-8 backdrop-blur-md">
-            <div className="bg-card/80 rounded-full px-4 py-1.5 text-sm font-medium text-primary">
-              Welcome to mind-stuff.in 🚀
+        <AnimatedSection className="min-h-[calc(100vh-11rem)] md:min-h-0 flex flex-col items-center justify-center text-center mb-12 max-w-4xl mx-auto">
+          <div className="relative mb-8">
+            {/* Soft Emerald Green gradient halo blur behind the Brain Emoji badge */}
+            <div className="absolute inset-0 -m-8 bg-[#0F6E56]/20 dark:bg-[#5DCAA5]/25 rounded-full blur-[40px] pointer-events-none" />
+            <div className="relative inline-block p-1 rounded-full bg-gradient-to-tr from-primary/30 to-primary/10 backdrop-blur-md border border-primary/20">
+              <div className="bg-card/90 rounded-full px-5 py-2 text-sm font-semibold text-primary flex items-center gap-2">
+                <span>🧠</span> Welcome to Mind-Stuff Blog 🚀
+              </div>
             </div>
           </div>
           <h1 className="text-5xl md:text-7xl font-sans font-black text-foreground mb-8 tracking-tight leading-tight flex flex-wrap justify-center gap-x-4">
-            <span>A digital</span>
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent">notebook</span>
-            <span>for my journey.</span>
+            <span>Clear Your Mind.</span>
+            <span className="text-primary">Focus Your Life.</span>
           </h1>
           <p className="text-xl md:text-2xl text-text-secondary font-light leading-relaxed mb-10 text-balance">
-            mind-stuff.in is a simple space on the internet where I share my journey as an Indian UG student — the things I learn, build, explore, and sometimes mess up while figuring out life, tech, and studies.
+            Simple ideas on focus, calm, and getting things done — without the overwhelm.
           </p>
-          <p className="text-lg md:text-xl text-gray-500 dark:text-gray-400 max-w-2xl text-balance">
-            If you are also a student trying to learn new skills, discover useful tools, or stay updated with tech, then you’re at the right place. Think of this blog as a digital notebook where I document everything useful that can help other students too.
-          </p>
+          <Link
+            href="/explore"
+            className="flex items-center gap-2 px-8 py-4 bg-[#0F172A] hover:bg-[#1E293B] text-white dark:bg-[#5DCAA5] dark:hover:bg-[#7ED6B7] dark:text-[#0B132B] font-bold rounded-xl transition-all shadow-lg shadow-[#0F172A]/10 dark:shadow-[#5DCAA5]/20 hover:scale-[1.02] active:scale-[0.98]"
+          >
+            Start Reading <FaArrowRight />
+          </Link>
         </AnimatedSection>
 
-        {/* WHAT YOU'LL FIND GRID */}
-        <AnimatedSection delay={0.2} className="mb-32">
-          <h2 className="text-3xl md:text-5xl font-bold mb-12 text-center text-foreground">
-            What You’ll Find <span className="text-primary">Here</span>
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
-            {[
-              {
-                title: "Student Tech & Tools",
-                desc: "I regularly share useful tools, software, AI tools, and productivity apps that can help students work smarter. From free resources to hidden gems, you’ll discover tools that can make your study life easier.",
-                icon: <FaLaptopCode className="text-3xl text-primary" />,
-                gradient: "from-primary/10 to-transparent",
-              },
-              {
-                title: "My Learning Journey",
-                desc: "This blog is also about my personal learning journey as a UG student in India. I’ll share experiences, mistakes, lessons, and things I discover while exploring technology, blogging, and building projects.",
-                icon: <FaBrain className="text-3xl text-accent" />,
-                gradient: "from-accent/10 to-transparent",
-              },
-              {
-                title: "Projects & Things I Build",
-                desc: "Sometimes I build small tools, experiments, or web projects. Whenever I create something useful, I’ll share it here with details on how it works and how students can use it.",
-                icon: <FaHammer className="text-3xl text-primary-hover" />,
-                gradient: "from-primary-hover/10 to-transparent",
-              },
-              {
-                title: "Latest Updates & Experiments",
-                desc: "Expect posts about new trends, tech updates, student resources, and experiments I try while learning new things. Basically, if I find something interesting or useful, it will land here.",
-                icon: <FaBullhorn className="text-3xl text-accent" />,
-                gradient: "from-accent/10 to-transparent",
-              }
-            ].map((item, i) => (
-              <div key={i} className={`p-8 rounded-3xl bg-card/50 backdrop-blur-xl border border-border hover:border-primary/30 transition-all duration-300 relative overflow-hidden group`}>
-                <div className={`absolute top-0 right-0 w-64 h-64 bg-gradient-to-bl ${item.gradient} rounded-bl-full opacity-50 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none`} />
-                <div className="w-14 h-14 bg-card rounded-2xl flex items-center justify-center shadow-sm mb-6 relative z-10 border border-border">
-                  {item.icon}
-                </div>
-                <h3 className="text-2xl font-bold mb-4 text-foreground relative z-10">{item.title}</h3>
-                <p className="text-text-secondary leading-relaxed relative z-10">{item.desc}</p>
-              </div>
-            ))}
+        {/* INTRO SECTION ("Why This Blog?") */}
+        <AnimatedSection delay={0.1} className="mb-22 max-w-4xl mx-auto">
+          <div className="p-10 md:p-12 relative overflow-hidden text-center md:text-left">
+            <h2 className="text-3xl md:text-4xl font-serif font-bold text-foreground mb-6">
+              Why This Blog?
+            </h2>
+            <p className="text-2xl font-serif italic text-text-secondary mb-6 leading-relaxed">
+              Too many thoughts. Too little time. Sound familiar?
+            </p>
+            <p className="text-lg text-foreground leading-relaxed">
+              This is a space for people who want a calmer, clearer mind. No jargon. No boring theory. Just simple, real tips you can use today.
+            </p>
           </div>
         </AnimatedSection>
 
-        {/* WHY THIS BLOG EXISTS & WHO IS IT FOR */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 mb-32">
-          <AnimatedSection delay={0.2} className="p-10 rounded-3xl bg-gradient-to-br from-primary/10 to-accent/5 border border-primary/20 backdrop-blur-sm">
-            <h2 className="text-3xl font-bold mb-6 text-foreground flex items-center gap-3">
-              Why This Blog Exists <span className="text-2xl">✨</span>
-            </h2>
-            <p className="text-lg text-text-secondary mb-6 leading-relaxed">
-              Many students want to learn new things but don’t know where to start. I created mind-stuff.in to share real experiences instead of just theory.
-            </p>
-            <p className="text-lg font-medium text-foreground mb-4">Here you will find:</p>
-            <ul className="space-y-3">
-              {['Practical insights', 'Honest experiences', 'Useful tools for students', 'Resources for learning new skills'].map((item, i) => (
-                <li key={i} className="flex items-center gap-3 text-text-secondary">
-                  <div className="w-2 h-2 rounded-full bg-primary" />
-                  {item}
-                </li>
-              ))}
-            </ul>
-            <p className="mt-8 text-text-secondary italic">
-              Everything is shared from a student perspective so it stays simple and relatable.
-            </p>
-          </AnimatedSection>
-
-          <AnimatedSection delay={0.4} className="p-10 rounded-3xl bg-card/60 shadow-[0_8px_30px_rgb(0,0,0,0.04)] dark:shadow-none border border-border backdrop-blur-sm">
-            <h2 className="text-3xl font-bold mb-6 text-foreground flex items-center gap-3">
-              Who Is This For? <span className="text-2xl">🎯</span>
-            </h2>
-            <p className="text-lg text-text-secondary mb-6 leading-relaxed">
-              This website is especially helpful if you find yourself in one of these groups:
-            </p>
-            <div className="space-y-4">
-              {[
-                'UG students in India',
-                'Students interested in technology & software tools',
-                'Beginners exploring blogging, coding, and productivity tools',
-                'Anyone who loves learning new things'
-              ].map((item, i) => (
-                <div key={i} className="p-4 rounded-xl bg-background border border-border flex items-start gap-4">
-                  <FaArrowRight className="text-primary mt-1 flex-shrink-0" />
-                  <span className="text-foreground font-medium">{item}</span>
-                </div>
-              ))}
-            </div>
-            <p className="mt-8 text-lg font-medium text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent">
-              If you are curious and love exploring new stuff, you’ll feel at home here.
-            </p>
-          </AnimatedSection>
-        </div>
-
-        {/* CALL TO ACTION */}
-        <AnimatedSection className="text-center max-w-3xl mx-auto mb-32">
-          <h2 className="text-4xl md:text-5xl font-black mb-6 text-foreground">
-            Let’s Learn & Build Together
+        {/* WHAT YOU'LL FIND HERE ("Made For You") */}
+        <AnimatedSection delay={0.2} className="mb-22">
+          <h2 className="text-3xl md:text-5xl font-bold mb-12 text-center text-foreground">
+            Made For <span className="text-primary">You</span>
           </h2>
-          <p className="text-xl text-text-secondary mb-8 leading-relaxed">
-            mind-stuff.in is not just a blog — it’s a growing collection of ideas, experiments, and student resources. If you enjoy discovering new tools, learning practical skills, and seeing how a student builds things step by step, then stay around.
-          </p>
-          <p className="text-2xl font-serif italic text-primary mb-10">
-            "Because sometimes the best learning happens when we simply share our stuff."
-          </p>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12 mb-12">
+            {[
+              {
+                title: "Mental Clarity & Self-Improvement",
+                desc: (
+                  <>
+                    Clear your mind, build better habits, feel lighter every day. Powered by real tools like{" "}
+                    <a
+                      href="https://mind-stuff.in"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-primary font-bold hover:underline inline-flex items-center gap-0.5"
+                    >
+                      Mind-stuff
+                    </a>{" "}
+                    — our own AI journaling app built for exactly this.
+                  </>
+                ),
+                icon: <FaBrain className="text-3xl text-text-secondary" />,
+              },
+              {
+                title: "Personal Finance & Investing",
+                desc: "Simple money lessons, no confusing jargon. Because less money stress means more mental clarity.",
+                icon: <FaCoins className="text-3xl text-text-secondary" />,
+              },
+              {
+                title: "Health & Fitness",
+                desc: "Easy tips for body and mind. A healthy body keeps a healthy mind — and that's what this blog is all about.",
+                icon: <FaDumbbell className="text-3xl text-text-secondary" />,
+              },
+              {
+                title: "Technology & AI Tools",
+                desc: (
+                  <>
+                    Smart apps and AI tools (including <span className="text-primary font-bold">Mind-stuff</span>) that save your time and quiet your mind.
+                  </>
+                ),
+                icon: <FaRobot className="text-3xl text-text-secondary" />,
+              },
+            ].map((item, i) => (
+              <div
+                key={i}
+                className="p-8 rounded-3xl bg-card border border-border hover:border-primary/20 transition-all duration-300 relative overflow-hidden group shadow-sm flex flex-col items-center text-center md:items-start md:text-left"
+              >
+                <div className="w-14 h-14 bg-background rounded-2xl flex items-center justify-center mb-6 relative z-10 border border-border">
+                  {item.icon}
+                </div>
+                <h3 className="text-2xl font-bold mb-4 text-foreground relative z-10">{item.title}</h3>
+                <div className="text-text-secondary leading-relaxed relative z-10">{item.desc}</div>
+              </div>
+            ))}
+          </div>
+
+          <div className="text-center max-w-3xl mx-auto">
+            <p className="text-lg md:text-xl text-text-secondary italic leading-relaxed">
+              "Everything here connects back to one goal: helping you think clearly, live better, and feel in control — with <span className="text-primary font-bold">Mind-stuff</span> as your daily companion for that journey."
+            </p>
+          </div>
         </AnimatedSection>
-        
-        {/* LATEST THOUGHTS BLOG GRID */}
-        <div id="explore-blogs" className="scroll-mt-24">
+
+        {/* FEATURED POST SECTION ("Start With This") */}
+        {/* <AnimatedSection delay={0.2} className="mb-22 max-w-5xl mx-auto">
+          <h2 className="text-3xl font-bold mb-8 text-foreground flex items-center gap-3">
+            <span className="w-4 h-8 bg-primary rounded-sm"></span>
+            Start With This
+          </h2>
+
+          <div className="bg-card/50 border border-border rounded-3xl overflow-hidden backdrop-blur-xl shadow-lg grid grid-cols-1 lg:grid-cols-2 group hover:border-primary/20 transition-all duration-300">
+            {featuredBlog?.coverImage ? (
+              <div className="relative h-64 lg:h-auto min-h-[300px] w-full overflow-hidden">
+                <Image
+                  src={featuredBlog.coverImage}
+                  alt={featuredTitle}
+                  fill
+                  className="object-cover transition-transform duration-500 group-hover:scale-105"
+                />
+              </div>
+            ) : (
+              <div className="relative h-64 lg:h-auto min-h-[300px] w-full bg-gradient-to-br from-primary/20 to-accent/20 flex items-center justify-center overflow-hidden">
+                <FaBookOpen className="text-6xl text-primary/40" />
+              </div>
+            )}
+            <div className="p-8 lg:p-12 flex flex-col justify-center">
+              {featuredBlog && (
+                <div className="flex items-center gap-3 mb-4 text-xs text-text-secondary">
+                  <span className="px-2.5 py-1 bg-primary/10 text-primary font-semibold rounded-full uppercase tracking-wider">
+                    {featuredBlog.mood}
+                  </span>
+                  <span>{format(new Date(featuredBlog.createdAt), "MMMM d, yyyy")}</span>
+                </div>
+              )}
+              <h3 className="text-2xl md:text-3xl font-serif font-bold text-foreground mb-4 leading-tight group-hover:text-primary transition-colors">
+                {featuredTitle}
+              </h3>
+              <p className="text-text-secondary leading-relaxed mb-8">
+                {featuredExcerpt}
+              </p>
+              <Link
+                href={featuredSlug}
+                className="inline-flex items-center gap-2 text-primary font-semibold hover:text-primary-hover group-hover:translate-x-1 transition-all"
+              >
+                Read Now <FaArrowRight />
+              </Link>
+            </div>
+          </div>
+        </AnimatedSection> */}
+
+        {/* NEWSLETTER SECTION ("Never Miss a Post") */}
+        {/* <AnimatedSection delay={0.2} className="mb-22 max-w-4xl mx-auto text-center">
+          <div className="p-10 md:p-14 rounded-3xl bg-[#1C2541] border border-[#2A3454] relative overflow-hidden shadow-xl">
+            
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+              Never Miss a Post
+            </h2>
+            <p className="text-lg text-slate-300 mb-8 max-w-xl mx-auto leading-relaxed">
+              Get simple tips for a clearer mind, straight to your inbox. No spam. Just value.
+            </p>
+            <NewsletterForm />
+          </div>
+        </AnimatedSection> */}
+
+        {/* LATEST POSTS / EXPLORE BLOG SECTION */}
+        <div id="explore-blogs" className="scroll-mt-24 mb-32">
           <AnimatedSection delay={0.2}>
             <div className="flex items-center justify-between mb-10 border-b border-border pb-4">
               <h2 className="text-3xl font-bold text-foreground flex items-center gap-3">
-                <span className="w-4 h-8 bg-gradient-to-b from-primary to-accent rounded-sm"></span>
-                Latest Posts
+                <span className="w-4 h-8 bg-primary rounded-sm"></span>
+                Explore Blogs
               </h2>
             </div>
 
@@ -173,6 +231,23 @@ export default async function Home() {
             )}
           </AnimatedSection>
         </div>
+
+        {/* FOOTER CTA */}
+        <AnimatedSection delay={0.2} className="text-center max-w-3xl mx-auto">
+          <h2 className="text-4xl md:text-5xl font-black mb-6 text-foreground">
+            Ready for a Clearer Mind?
+          </h2>
+          <p className="text-xl text-text-secondary mb-10 leading-relaxed">
+            Explore. Learn. Feel lighter.
+          </p>
+          <Link
+            href="/explore"
+            className="inline-flex items-center gap-2 px-8 py-4 bg-accent hover:bg-accent-hover text-white font-semibold rounded-xl transition-all shadow-lg shadow-accent/20 hover:scale-[1.02] active:scale-[0.98]"
+          >
+            Explore Blog <FaArrowRight />
+          </Link>
+        </AnimatedSection>
+
       </div>
     </main>
   );

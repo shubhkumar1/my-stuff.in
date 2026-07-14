@@ -1,7 +1,7 @@
 "use client";
 import { useEditor, EditorContent, ReactNodeViewRenderer, Editor } from '@tiptap/react'
 import StarterKit from '@tiptap/starter-kit'
-import React, { useCallback, useState } from 'react'
+import React, { useCallback, useState, useEffect } from 'react'
 
 // Tiptap Extensions
 import Underline from '@tiptap/extension-underline'
@@ -156,6 +156,12 @@ const TiptapEditor = ({ content, onChange, editable = true }: { content: string,
         },
     },
   })
+
+  useEffect(() => {
+    if (editor && content !== editor.getHTML()) {
+      editor.commands.setContent(content);
+    }
+  }, [content, editor]);
 
   return (
     <div className="border border-border rounded-md overflow-hidden bg-card text-foreground flex flex-col focus-within:ring-2 focus-within:ring-primary/50 transition-all">

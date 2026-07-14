@@ -9,17 +9,21 @@ const BlogSchema = new Schema(
         coverImage: { type: String },
         mood: {
             type: String,
-            enum: ["Productive", "Melancholy", "Excited", "Neutral"],
-            default: "Neutral",
+            enum: ["Tech", "Finance", "Health", "Mindset"],
+            default: "Tech",
         },
         readingTime: { type: String }, // e.g. "3 min read"
         author: { type: Schema.Types.ObjectId, ref: "User" },
+        likes: { type: [String], default: [] },
     },
     { timestamps: true }
 );
 
 // Virtual for comment count could be added here if needed
 
-const Blog = models.Blog || model("Blog", BlogSchema);
+if (mongoose.models.Blog) {
+    delete mongoose.models.Blog;
+}
+const Blog = model("Blog", BlogSchema);
 
 export default Blog;

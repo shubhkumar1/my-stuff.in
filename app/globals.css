@@ -6,6 +6,7 @@
   --color-primary: var(--primary);
   --color-primary-hover: var(--primary-hover);
   --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -14,7 +15,7 @@
 }
 
 :root {
-  /* Light Mode (Clean + Modern Student) */
+  /* Light Mode (Mind-stuff color scheme) */
   --background: #F8FAFC;
   --foreground: #0F172A;
   --card: #FFFFFF;
@@ -22,23 +23,25 @@
   --border: #E2E8F0;
 
   /* Shared Variables (Light defaults) */
-  --primary: #06B6D4;
-  --primary-hover: #0891B2;
-  --accent: #6366F1;
+  --primary: #0F6E56;
+  --primary-hover: #0B5643;
+  --accent: #D85A30;
+  --accent-hover: #C24D27;
 }
 
 :root.dark, .dark {
-  /* Dark Mode (Trendy Tech Look) */
-  --background: #0B1120;
-  --foreground: #F9FAFB;
-  --card: #111827;
+  /* Dark Mode (Mind-stuff color scheme) */
+  --background: #0B132B;
+  --foreground: #E2E8F0;
+  --card: #1C2541;
   --text-secondary: #9CA3AF;
-  --border: #1F2937;
+  --border: #2A3454;
 
   /* Dark Mode Overrides */
-  --primary: #22D3EE;
-  --primary-hover: #06B6D4;
-  --accent: #8B5CF6;
+  --primary: #5DCAA5;
+  --primary-hover: #7ED6B7;
+  --accent: #F0997B;
+  --accent-hover: #F3B099;
 }
 
 body {

@@ -10,6 +10,8 @@ import CommentSection from "@/components/CommentSection";
 import { format } from "date-fns";
 import { BlogPost } from "@/types";
 import { Metadata } from "next";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 
 interface BlogPageProps {
     params: Promise<{ slug: string }>;
@@ -47,14 +49,16 @@ export default async function BlogPage({ params }: BlogPageProps) {
         notFound();
     }
 
+    const session = await getServerSession(authOptions);
+
     const moodColors = {
-        Productive: "from-green-500 to-green-600",
-        Melancholy: "from-indigo-500 to-indigo-600",
-        Excited: "from-orange-500 to-orange-600",
-        Neutral: "from-gray-500 to-gray-600",
+        Mindset: "from-purple-500 to-purple-600",
+        Finance: "from-emerald-500 to-emerald-600",
+        Health: "from-rose-500 to-rose-600",
+        Tech: "from-blue-500 to-blue-600",
     };
 
-    const accentColor = moodColors[blog.mood] || moodColors.Neutral;
+    const accentColor = moodColors[blog.mood] || moodColors.Tech;
 
     return (
         <>
@@ -91,7 +95,11 @@ export default async function BlogPage({ params }: BlogPageProps) {
                         />
 
                         <div className="mt-12 pt-8 border-t border-border flex items-center justify-between">
-                            <LikeButton blogId={blog._id} />
+                            <LikeButton 
+                                blogId={blog._id} 
+                                initialLikes={blog.likes?.length || 0}
+                                hasLiked={session?.user?.email ? (blog.likes?.includes(session.user.email) || false) : false}
+                            />
                             <div className="flex gap-2">
                                 {/* Share buttons placeholder */}
                             </div>

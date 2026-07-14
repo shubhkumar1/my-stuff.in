@@ -5,11 +5,12 @@ export interface BlogPost {
     excerpt: string;
     content: string;
     coverImage?: string;
-    mood: "Productive" | "Melancholy" | "Excited" | "Neutral";
+    mood: "Tech" | "Finance" | "Health" | "Mindset";
     readingTime?: string;
     createdAt: string;
     author?: {
         name: string;
         image: string;
     };
+    likes?: string[];
 }

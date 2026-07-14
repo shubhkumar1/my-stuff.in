@@ -7,7 +7,7 @@ import AnimatedSection from "@/components/AnimatedSection";
 
 export default function ExploreClient({ initialBlogs }: { initialBlogs: BlogPost[] }) {
     const [sortOrder, setSortOrder] = useState<"newest" | "oldest">("newest");
-    const [selectedMood, setSelectedMood] = useState<"All" | "Productive" | "Melancholy" | "Excited" | "Neutral">("All");
+    const [selectedMood, setSelectedMood] = useState<"All" | "Tech" | "Finance" | "Health" | "Mindset">("All");
     const [searchQuery, setSearchQuery] = useState("");
 
     const filteredAndSortedBlogs = useMemo(() => {
@@ -43,7 +43,7 @@ export default function ExploreClient({ initialBlogs }: { initialBlogs: BlogPost
         return result;
     }, [initialBlogs, sortOrder, selectedMood, searchQuery]);
 
-    const moods = ["All", "Productive", "Melancholy", "Excited", "Neutral"];
+    const moods = ["All", "Tech", "Finance", "Health", "Mindset"];
 
     return (
         <div className="max-w-7xl mx-auto px-6 sm:px-12 md:px-20 pt-24 pb-20">

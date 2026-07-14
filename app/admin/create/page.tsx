@@ -12,7 +12,7 @@ const CreateBlogPage = () => {
     const [slug, setSlug] = useState("");
     const [excerpt, setExcerpt] = useState("");
     const [coverImage, setCoverImage] = useState("");
-    const [mood, setMood] = useState("Neutral");
+    const [mood, setMood] = useState("Tech");
     const [content, setContent] = useState("");
     const [showPreview, setShowPreview] = useState(false);
     const [loading, setLoading] = useState(false);
@@ -143,10 +143,10 @@ const CreateBlogPage = () => {
                             onChange={(e) => setMood(e.target.value)}
                             className="w-full p-2 border rounded bg-background border-border text-foreground focus:ring-1 focus:ring-primary outline-none"
                         >
-                            <option value="Neutral">Neutral</option>
-                            <option value="Productive">Productive</option>
-                            <option value="Melancholy">Melancholy</option>
-                            <option value="Excited">Excited</option>
+                            <option value="Tech">Tech</option>
+                            <option value="Finance">Finance</option>
+                            <option value="Health">Health</option>
+                            <option value="Mindset">Mindset</option>
                         </select>
                     </div>
 

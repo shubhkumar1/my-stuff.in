@@ -64,7 +64,7 @@ const Navbar = () => {
                         className="text-xl font-serif font-bold text-foreground hover:text-primary transition"
                         onClick={() => setIsMobileMenuOpen(false)}
                     >
-                        mind-stuff<span className="text-primary">.in</span>
+                        Mind-Stuff<span className="text-primary"> Blog</span>
                     </Link>
                 </div>
 
@@ -120,7 +120,7 @@ const Navbar = () => {
                             </button>
                             <button
                                 onClick={() => signIn("google")}
-                                className="px-4 py-2 bg-primary hover:bg-primary-hover text-white rounded-lg font-medium transition shadow-sm shadow-primary/30"
+                                className="px-4 py-2 bg-accent hover:bg-accent-hover text-white rounded-lg font-medium transition shadow-sm shadow-accent/30"
                             >
                                 Sign Up
                             </button>
@@ -233,7 +233,7 @@ const Navbar = () => {
                                         </button>
                                         <button
                                             onClick={() => signIn("google")}
-                                            className="w-full py-3 bg-primary hover:bg-primary-hover text-white rounded-lg font-medium transition shadow-sm shadow-primary/30"
+                                            className="w-full py-3 bg-accent hover:bg-accent-hover text-white rounded-lg font-medium transition shadow-sm shadow-accent/30"
                                         >
                                             Sign Up
                                         </button>
