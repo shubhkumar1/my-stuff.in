@@ -63,7 +63,7 @@ export async function PUT(
         }
 
         const { id } = await params;
-        const { title, slug, excerpt, content, coverImage, mood } = await req.json();
+        const { title, slug, excerpt, content, coverImage, coverImageAlt, mood } = await req.json();
 
         await connectDB();
         const updatedBlog = await Blog.findByIdAndUpdate(
@@ -74,6 +74,7 @@ export async function PUT(
                 excerpt,
                 content,
                 coverImage,
+                coverImageAlt,
                 mood,
                 readingTime: `${Math.ceil(content.split(" ").length / 200)} min read`,
             },

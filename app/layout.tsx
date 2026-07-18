@@ -19,9 +19,41 @@ const inter = Inter({
   display: "swap",
 });
 
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "";
+const ogImageUrl = siteUrl ? `${siteUrl}/OG.png` : "/OG.png";
+
 export const metadata: Metadata = {
-  title: "mind-stuff.in",
-  description: "A digital notebook for my journey.",
+  metadataBase: siteUrl ? new URL(siteUrl) : null,
+  title: {
+    default: "Mind-Stuff Blog",
+    template: "%s | Mind-Stuff Blog",
+  },
+  description: "A digital notebook for my journey. Simple ideas on focus, calm, and getting things done — without the overwhelm.",
+  openGraph: {
+    title: "Mind-Stuff Blog",
+    description: "A digital notebook for my journey. Simple ideas on focus, calm, and getting things done — without the overwhelm.",
+    url: siteUrl,
+    siteName: "Mind-Stuff Blog",
+    images: [
+      {
+        url: ogImageUrl,
+        width: 1200,
+        height: 630,
+        alt: "Mind-Stuff Blog",
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Mind-Stuff Blog",
+    description: "A digital notebook for my journey. Simple ideas on focus, calm, and getting things done — without the overwhelm.",
+    images: [ogImageUrl],
+  },
+  other: {
+    "theme-color": "#0F6E56",
+  },
 };
 
 export default function RootLayout({

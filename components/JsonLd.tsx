@@ -5,6 +5,8 @@ interface JsonLdProps {
     url: string;
 }
 
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "";
+
 const JsonLd = ({ post, url }: JsonLdProps) => {
     const jsonLd = {
         "@context": "https://schema.org",
@@ -25,7 +27,7 @@ const JsonLd = ({ post, url }: JsonLdProps) => {
             name: "Shubham's Blog",
             logo: {
                 "@type": "ImageObject",
-                url: "https://yourdomain.com/logo.png", // Placeholder
+                url: `${siteUrl}/OG.png`,
             },
         },
         datePublished: post.createdAt,

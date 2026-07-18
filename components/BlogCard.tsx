@@ -33,7 +33,7 @@ const BlogCard = ({ post, index }: BlogCardProps) => {
                     <div className="relative h-48 w-full overflow-hidden">
                         <Image
                             src={post.coverImage}
-                            alt={post.title}
+                            alt={post.coverImageAlt || post.title}
                             fill
                             className="object-cover transition-transform duration-500 hover:scale-105"
                         />

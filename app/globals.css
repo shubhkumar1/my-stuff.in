@@ -16,6 +16,7 @@
 
 :root {
   /* Light Mode (Mind-stuff color scheme) */
+  color-scheme: light;
   --background: #F8FAFC;
   --foreground: #0F172A;
   --card: #FFFFFF;
@@ -31,6 +32,7 @@
 
 :root.dark, .dark {
   /* Dark Mode (Mind-stuff color scheme) */
+  color-scheme: dark;
   --background: #0B132B;
   --foreground: #E2E8F0;
   --card: #1C2541;

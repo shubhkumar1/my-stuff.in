@@ -7,6 +7,7 @@ const BlogSchema = new Schema(
         excerpt: { type: String, required: true },
         content: { type: String, required: true }, // Store as HTML string or JSON
         coverImage: { type: String },
+        coverImageAlt: { type: String },
         mood: {
             type: String,
             enum: ["Tech", "Finance", "Health", "Mindset"],

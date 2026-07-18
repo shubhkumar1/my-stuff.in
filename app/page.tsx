@@ -159,7 +159,7 @@ export default async function Home() {
               <div className="relative h-64 lg:h-auto min-h-[300px] w-full overflow-hidden">
                 <Image
                   src={featuredBlog.coverImage}
-                  alt={featuredTitle}
+                  alt={featuredBlog.coverImageAlt || featuredTitle}
                   fill
                   className="object-cover transition-transform duration-500 group-hover:scale-105"
                 />

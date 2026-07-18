@@ -19,6 +19,7 @@ const EditBlogPage = ({ params }: { params: Promise<{ id: string }> }) => {
     const [slug, setSlug] = useState("");
     const [excerpt, setExcerpt] = useState("");
     const [coverImage, setCoverImage] = useState("");
+    const [coverImageAlt, setCoverImageAlt] = useState("");
     const [mood, setMood] = useState("Tech");
     const [content, setContent] = useState("");
     const [showPreview, setShowPreview] = useState(false);
@@ -35,6 +36,7 @@ const EditBlogPage = ({ params }: { params: Promise<{ id: string }> }) => {
                     setSlug(data.slug);
                     setExcerpt(data.excerpt);
                     setCoverImage(data.coverImage || "");
+                    setCoverImageAlt(data.coverImageAlt || "");
                     setMood(data.mood);
                     setContent(data.content);
                 } else {
@@ -77,6 +79,7 @@ const EditBlogPage = ({ params }: { params: Promise<{ id: string }> }) => {
                     excerpt,
                     content,
                     coverImage,
+                    coverImageAlt,
                     mood,
                 }),
             });
@@ -128,6 +131,7 @@ const EditBlogPage = ({ params }: { params: Promise<{ id: string }> }) => {
                             excerpt: excerpt || "Excerpt...",
                             content: content,
                             coverImage: coverImage,
+                            coverImageAlt: coverImageAlt,
                             mood: mood as any,
                             createdAt: new Date().toISOString(),
                         }} index={0} />
@@ -181,6 +185,17 @@ const EditBlogPage = ({ params }: { params: Promise<{ id: string }> }) => {
                             value={coverImage}
                             onChange={(e) => setCoverImage(e.target.value)}
                             className="w-full p-2 border rounded bg-background border-border text-foreground focus:ring-1 focus:ring-primary outline-none"
+                        />
+                    </div>
+
+                    <div>
+                        <label className="block text-sm font-medium mb-1 text-text-secondary">Cover Image Alt Text (for SEO & accessibility)</label>
+                        <input
+                            type="text"
+                            value={coverImageAlt}
+                            onChange={(e) => setCoverImageAlt(e.target.value)}
+                            className="w-full p-2 border rounded bg-background border-border text-foreground focus:ring-1 focus:ring-primary outline-none"
+                            placeholder="Describe the cover image"
                         />
                     </div>
 

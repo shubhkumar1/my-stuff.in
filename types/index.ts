@@ -5,6 +5,7 @@ export interface BlogPost {
     excerpt: string;
     content: string;
     coverImage?: string;
+    coverImageAlt?: string;
     mood: "Tech" | "Finance" | "Health" | "Mindset";
     readingTime?: string;
     createdAt: string;

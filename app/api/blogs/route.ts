@@ -13,7 +13,7 @@ export async function POST(req: Request) {
         }
 
         const body = await req.json();
-        const { title, slug, excerpt, content, coverImage, mood } = body;
+        const { title, slug, excerpt, content, coverImage, coverImageAlt, mood } = body;
 
         await connectDB();
 
@@ -31,6 +31,7 @@ export async function POST(req: Request) {
             excerpt,
             content,
             coverImage,
+            coverImageAlt,
             mood,
             author: session.user.id,
             readingTime: `${Math.ceil(content.split(" ").length / 200)} min read`,

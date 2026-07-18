@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useSession, signIn, signOut } from "next-auth/react";
 import { useTheme } from "next-themes";
@@ -61,10 +62,19 @@ const Navbar = () => {
                 <div className="flex md:flex-none justify-center md:justify-start">
                     <Link
                         href="/"
-                        className="text-xl font-serif font-bold text-foreground hover:text-primary transition"
+                        className="flex items-center gap-2 text-xl font-serif font-bold text-foreground hover:text-primary transition"
                         onClick={() => setIsMobileMenuOpen(false)}
                     >
-                        Mind-Stuff<span className="text-primary"> Blog</span>
+                        <Image
+                            src="/logo.png"
+                            alt="Mind-Stuff Blog Logo"
+                            width={32}
+                            height={32}
+                            className="object-contain dark:invert"
+                        />
+                        <span className="leading-none pt-1">
+                            Mind-Stuff<span className="text-primary"> Blog</span>
+                        </span>
                     </Link>
                 </div>
 

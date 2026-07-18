@@ -55,7 +55,8 @@ const MenuBar = ({ editor }: { editor: Editor | null }) => {
     if (!editor) return
     const url = window.prompt('Image URL')
     if (url) {
-      editor.chain().focus().setImage({ src: url }).run()
+      const alt = window.prompt('Alt Text (recommended for SEO & accessibility)') || ''
+      editor.chain().focus().setImage({ src: url, alt }).run()
     }
   }, [editor])
 

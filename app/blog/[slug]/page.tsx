@@ -24,10 +24,15 @@ async function getBlog(slug: string) {
     return JSON.parse(JSON.stringify(blog)) as BlogPost;
 }
 
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "";
+const ogImageUrl = siteUrl ? `${siteUrl}/OG.png` : "/OG.png";
+
 export async function generateMetadata({ params }: BlogPageProps): Promise<Metadata> {
     const { slug } = await params;
     const blog = await getBlog(slug);
     if (!blog) return {};
+
+    const postUrl = `${siteUrl}/blog/${blog.slug}`;
 
     return {
         title: blog.title,
@@ -35,8 +40,24 @@ export async function generateMetadata({ params }: BlogPageProps): Promise<Metad
         openGraph: {
             title: blog.title,
             description: blog.excerpt,
-            images: blog.coverImage ? [blog.coverImage] : [],
+            url: postUrl,
+            siteName: "Mind-Stuff Blog",
+            images: [
+                {
+                    url: ogImageUrl,
+                    width: 1200,
+                    height: 630,
+                    alt: blog.title,
+                },
+            ],
             type: "article",
+            locale: "en_US",
+        },
+        twitter: {
+            card: "summary_large_image",
+            title: blog.title,
+            description: blog.excerpt,
+            images: [ogImageUrl],
         },
     };
 }
@@ -63,13 +84,13 @@ export default async function BlogPage({ params }: BlogPageProps) {
     return (
         <>
             <ReadingProgress />
-            <JsonLd post={blog} url={`https://yourdomain.com/blog/${blog.slug}`} />
+            <JsonLd post={blog} url={`${siteUrl}/blog/${blog.slug}`} />
 
             <article className="min-h-screen pb-20 bg-background">
                 {/* Header */}
                 <div className={`w-full h-[60vh] relative flex items-center justify-center text-center px-6 bg-gradient-to-br ${accentColor} text-white overflow-hidden`}>
                     {blog.coverImage && (
-                        <Image src={blog.coverImage} fill alt={blog.title} className="object-cover mix-blend-overlay opacity-50 z-0" />
+                        <Image src={blog.coverImage} fill alt={blog.coverImageAlt || blog.title} className="object-cover mix-blend-overlay opacity-50 z-0" />
                     )}
                     <div className="absolute inset-0 bg-black/30 z-[1]" />
                     <div className="relative z-10 max-w-4xl">
