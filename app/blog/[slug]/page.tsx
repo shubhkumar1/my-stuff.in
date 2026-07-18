@@ -35,6 +35,7 @@ export async function generateMetadata({ params }: BlogPageProps): Promise<Metad
     const postUrl = `${siteUrl}/blog/${blog.slug}`;
 
     return {
+        metadataBase: siteUrl ? new URL(siteUrl) : null,
         title: blog.title,
         description: blog.excerpt,
         openGraph: {
