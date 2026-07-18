@@ -28,10 +28,10 @@ export const metadata: Metadata = {
     default: "Mind-Stuff Blog",
     template: "%s | Mind-Stuff Blog",
   },
-  description: "A digital notebook for my journey. Simple ideas on focus, calm, and getting things done — without the overwhelm.",
+  description: "Tired of a noisy mind? Get simple tips on focus, money, health & AI tools. Clear your head, read one post at a time.",
   openGraph: {
     title: "Mind-Stuff Blog",
-    description: "A digital notebook for my journey. Simple ideas on focus, calm, and getting things done — without the overwhelm.",
+    description: "Tired of a noisy mind? Get simple tips on focus, money, health & AI tools. Clear your head, read one post at a time.",
     url: siteUrl,
     siteName: "Mind-Stuff Blog",
     images: [
@@ -48,7 +48,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Mind-Stuff Blog",
-    description: "A digital notebook for my journey. Simple ideas on focus, calm, and getting things done — without the overwhelm.",
+    description: "Tired of a noisy mind? Get simple tips on focus, money, health & AI tools. Clear your head, read one post at a time.",
     images: [ogImageUrl],
   },
   other: {
