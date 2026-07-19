@@ -30,7 +30,8 @@
   --accent-hover: #C24D27;
 }
 
-:root.dark, .dark {
+:root.dark,
+.dark {
   /* Dark Mode (Mind-stuff color scheme) */
   color-scheme: dark;
   --background: #0B132B;

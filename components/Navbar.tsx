@@ -46,7 +46,7 @@ const Navbar = () => {
     return (
         <nav className="sticky top-0 z-40 w-full backdrop-blur-md bg-background/80 border-b border-border transition-colors duration-300">
             <div className="max-w-7xl mx-auto px-6 sm:px-12 md:px-20 h-16 flex items-center justify-between">
-                
+
                 {/* Mobile Menu Button (Left Side) */}
                 <div className="md:hidden flex flex-1 justify-start">
                     <button
@@ -66,11 +66,11 @@ const Navbar = () => {
                         onClick={() => setIsMobileMenuOpen(false)}
                     >
                         <Image
-                            src="/logo.svg"
+                            src="/logo.png"
                             alt="Mind-Stuff Blog Logo"
-                            width={32}
-                            height={32}
-                            className="object-contain"
+                            width={35}
+                            height={35}
+                            className="object-contain dark:invert"
                         />
                         <span className="leading-none pt-1">
                             Mind-Stuff<span className="text-primary"> Blog</span>
@@ -144,7 +144,7 @@ const Navbar = () => {
                 {isMobileMenuOpen && (
                     <>
                         {/* Overlay */}
-                        <motion.div 
+                        <motion.div
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                             exit={{ opacity: 0 }}
@@ -162,8 +162,8 @@ const Navbar = () => {
                         >
                             <div className="flex items-center justify-between p-6 border-b border-border">
                                 <span className="text-lg font-serif font-bold text-foreground">Menu</span>
-                                <button 
-                                    onClick={() => setIsMobileMenuOpen(false)} 
+                                <button
+                                    onClick={() => setIsMobileMenuOpen(false)}
                                     className="p-2 text-text-secondary hover:text-primary transition rounded-full hover:bg-black/5 dark:hover:bg-white/5"
                                 >
                                     <FaTimes className="text-xl" />
@@ -173,82 +173,82 @@ const Navbar = () => {
                             <div className="flex flex-col p-6 overflow-y-auto flex-1 h-full">
                                 {/* Top Section */}
                                 <div>
-                                    <Link 
-                                        href="/explore" 
+                                    <Link
+                                        href="/explore"
                                         onClick={() => setIsMobileMenuOpen(false)}
                                         className="text-lg font-medium text-text-secondary hover:text-primary transition block py-2"
                                     >
                                         Explore Blogs
                                     </Link>
                                 </div>
-                                
+
                                 {/* Bottom Section */}
                                 <div className="flex flex-col gap-6 mt-auto pt-6">
                                     <div className="h-px bg-border"></div>
 
                                     {/* Theme Toggle */}
-                                {mounted && (
-                                    <div className="flex items-center justify-between">
-                                        <span className="text-lg font-medium text-text-secondary">Theme</span>
-                                        <div className="flex items-center gap-2 bg-black/5 dark:bg-white/5 p-1 rounded-full border border-border">
-                                            <button
-                                                onClick={() => setTheme("light")}
-                                                className={`p-2 rounded-full transition ${theme === "light" ? "bg-background shadow-sm text-primary" : "text-text-secondary hover:text-foreground"}`}
-                                                aria-label="Light Theme"
-                                            >
-                                                <FaSun />
-                                            </button>
-                                            <button
-                                                onClick={() => setTheme("dark")}
-                                                className={`p-2 rounded-full transition ${theme === "dark" ? "bg-background shadow-sm text-primary" : "text-text-secondary hover:text-foreground"}`}
-                                                aria-label="Dark Theme"
-                                            >
-                                                <FaMoon />
-                                            </button>
-                                        </div>
-                                    </div>
-                                )}
-
-                                <div className="h-px bg-border my-2"></div>
-
-                                {/* Auth Actions */}
-                                {session ? (
-                                    <div className="flex flex-col gap-4">
-                                        <div className="flex items-center gap-3 p-3 bg-black/5 dark:bg-white/5 rounded-xl border border-border overflow-hidden">
-                                            {session.user?.image ? (
-                                                <img src={session.user.image} alt={session.user.name || "User"} className="w-10 h-10 rounded-full border border-border object-cover flex-shrink-0" />
-                                            ) : (
-                                                <FaUserCircle className="text-4xl text-text-secondary flex-shrink-0" />
-                                            )}
-                                            <div className="flex flex-col overflow-hidden min-w-0">
-                                                <span className="text-sm font-medium text-foreground truncate block">{session.user?.name}</span>
-                                                <span className="text-xs text-text-secondary truncate block">{session.user?.email}</span>
+                                    {mounted && (
+                                        <div className="flex items-center justify-between">
+                                            <span className="text-lg font-medium text-text-secondary">Theme</span>
+                                            <div className="flex items-center gap-2 bg-black/5 dark:bg-white/5 p-1 rounded-full border border-border">
+                                                <button
+                                                    onClick={() => setTheme("light")}
+                                                    className={`p-2 rounded-full transition ${theme === "light" ? "bg-background shadow-sm text-primary" : "text-text-secondary hover:text-foreground"}`}
+                                                    aria-label="Light Theme"
+                                                >
+                                                    <FaSun />
+                                                </button>
+                                                <button
+                                                    onClick={() => setTheme("dark")}
+                                                    className={`p-2 rounded-full transition ${theme === "dark" ? "bg-background shadow-sm text-primary" : "text-text-secondary hover:text-foreground"}`}
+                                                    aria-label="Dark Theme"
+                                                >
+                                                    <FaMoon />
+                                                </button>
                                             </div>
                                         </div>
-                                        <button
-                                            onClick={() => signOut()}
-                                            className="flex items-center justify-center gap-2 px-4 py-3 text-sm font-medium text-red-600 bg-red-50 dark:bg-red-900/20 dark:text-red-300 rounded-lg hover:bg-red-100 dark:hover:bg-red-900/40 transition w-full"
-                                        >
-                                            <FaSignOutAlt />
-                                            <span>Logout</span>
-                                        </button>
-                                    </div>
-                                ) : (
-                                    <div className="flex flex-col gap-3 mt-2">
-                                        <button
-                                            onClick={() => signIn("google")}
-                                            className="w-full py-3 border border-border rounded-lg font-medium text-text-secondary hover:text-primary hover:border-primary transition"
-                                        >
-                                            Login
-                                        </button>
-                                        <button
-                                            onClick={() => signIn("google")}
-                                            className="w-full py-3 bg-accent hover:bg-accent-hover text-white rounded-lg font-medium transition shadow-sm shadow-accent/30"
-                                        >
-                                            Sign Up
-                                        </button>
-                                    </div>
-                                )}
+                                    )}
+
+                                    <div className="h-px bg-border my-2"></div>
+
+                                    {/* Auth Actions */}
+                                    {session ? (
+                                        <div className="flex flex-col gap-4">
+                                            <div className="flex items-center gap-3 p-3 bg-black/5 dark:bg-white/5 rounded-xl border border-border overflow-hidden">
+                                                {session.user?.image ? (
+                                                    <img src={session.user.image} alt={session.user.name || "User"} className="w-10 h-10 rounded-full border border-border object-cover flex-shrink-0" />
+                                                ) : (
+                                                    <FaUserCircle className="text-4xl text-text-secondary flex-shrink-0" />
+                                                )}
+                                                <div className="flex flex-col overflow-hidden min-w-0">
+                                                    <span className="text-sm font-medium text-foreground truncate block">{session.user?.name}</span>
+                                                    <span className="text-xs text-text-secondary truncate block">{session.user?.email}</span>
+                                                </div>
+                                            </div>
+                                            <button
+                                                onClick={() => signOut()}
+                                                className="flex items-center justify-center gap-2 px-4 py-3 text-sm font-medium text-red-600 bg-red-50 dark:bg-red-900/20 dark:text-red-300 rounded-lg hover:bg-red-100 dark:hover:bg-red-900/40 transition w-full"
+                                            >
+                                                <FaSignOutAlt />
+                                                <span>Logout</span>
+                                            </button>
+                                        </div>
+                                    ) : (
+                                        <div className="flex flex-col gap-3 mt-2">
+                                            <button
+                                                onClick={() => signIn("google")}
+                                                className="w-full py-3 border border-border rounded-lg font-medium text-text-secondary hover:text-primary hover:border-primary transition"
+                                            >
+                                                Login
+                                            </button>
+                                            <button
+                                                onClick={() => signIn("google")}
+                                                className="w-full py-3 bg-accent hover:bg-accent-hover text-white rounded-lg font-medium transition shadow-sm shadow-accent/30"
+                                            >
+                                                Sign Up
+                                            </button>
+                                        </div>
+                                    )}
                                 </div>
                             </div>
                         </motion.div>
