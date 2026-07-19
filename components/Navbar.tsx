@@ -66,7 +66,7 @@ const Navbar = () => {
                         onClick={() => setIsMobileMenuOpen(false)}
                     >
                         <Image
-                            src="/logo.png"
+                            src="/logo-fin.png"
                             alt="Mind-Stuff Blog Logo"
                             width={35}
                             height={35}
