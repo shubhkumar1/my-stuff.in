@@ -25,7 +25,7 @@ async function getBlog(slug: string) {
 }
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "";
-const ogImageUrl = siteUrl ? `${siteUrl}/OG.png` : "/OG.png";
+const ogImageUrl = siteUrl ? `${siteUrl}/OG.jpg` : "/OG.jpg";
 
 export async function generateMetadata({ params }: BlogPageProps): Promise<Metadata> {
     const { slug } = await params;

@@ -66,11 +66,11 @@ const Navbar = () => {
                         onClick={() => setIsMobileMenuOpen(false)}
                     >
                         <Image
-                            src="/logo.png"
+                            src="/logo.svg"
                             alt="Mind-Stuff Blog Logo"
                             width={32}
                             height={32}
-                            className="object-contain dark:invert"
+                            className="object-contain"
                         />
                         <span className="leading-none pt-1">
                             Mind-Stuff<span className="text-primary"> Blog</span>

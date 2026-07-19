@@ -27,7 +27,7 @@ const JsonLd = ({ post, url }: JsonLdProps) => {
             name: "Shubham's Blog",
             logo: {
                 "@type": "ImageObject",
-                url: `${siteUrl}/OG.png`,
+                url: `${siteUrl}/OG.jpg`,
             },
         },
         datePublished: post.createdAt,

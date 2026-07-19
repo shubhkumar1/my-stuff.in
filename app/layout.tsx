@@ -20,7 +20,7 @@ const inter = Inter({
 });
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "";
-const ogImageUrl = siteUrl ? `${siteUrl}/OG.png` : "/OG.png";
+const ogImageUrl = siteUrl ? `${siteUrl}/OG.jpg` : "/OG.jpg";
 
 export const metadata: Metadata = {
   metadataBase: siteUrl ? new URL(siteUrl) : null,
@@ -50,6 +50,15 @@ export const metadata: Metadata = {
     title: "Mind-Stuff Blog",
     description: "Tired of a noisy mind? Get simple tips on focus, money, health & AI tools. Clear your head, read one post at a time.",
     images: [ogImageUrl],
+  },
+  icons: {
+    icon: [
+      { url: "/favicon.svg", type: "image/svg+xml" },
+      { url: "/app-icon.svg", type: "image/svg+xml" },
+    ],
+    apple: [
+      { url: "/app-icon.svg", type: "image/svg+xml" },
+    ],
   },
   other: {
     "theme-color": "#0F6E56",
