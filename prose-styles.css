@@ -1,7 +1,8 @@
 @import "highlight.js/styles/github-dark-dimmed.css";
 
-/* Base ProseMirror Styles */
-.ProseMirror {
+/* Base ProseMirror & Typography Content Styles */
+.ProseMirror,
+.prose {
     outline: none;
 }
 
@@ -13,17 +14,127 @@
     pointer-events: none;
 }
 
+/* Headings (H1, H2, H3, H4, H5, H6) */
+.ProseMirror h1,
+.prose h1 {
+    font-size: 2.25rem;
+    line-height: 2.5rem;
+    font-weight: 700;
+    margin-top: 1.5em;
+    margin-bottom: 0.8em;
+    color: var(--foreground);
+}
+
+.ProseMirror h2,
+.prose h2 {
+    font-size: 1.75rem;
+    line-height: 2.125rem;
+    font-weight: 700;
+    margin-top: 1.4em;
+    margin-bottom: 0.6em;
+    color: var(--foreground);
+}
+
+.ProseMirror h3,
+.prose h3 {
+    font-size: 1.35rem;
+    line-height: 1.75rem;
+    font-weight: 600;
+    margin-top: 1.2em;
+    margin-bottom: 0.5em;
+    color: var(--foreground);
+}
+
+.ProseMirror h4,
+.prose h4 {
+    font-size: 1.15rem;
+    line-height: 1.5rem;
+    font-weight: 600;
+    margin-top: 1em;
+    margin-bottom: 0.4em;
+    color: var(--foreground);
+}
+
+/* Editor Heading Tag Badges on Hover & Focus */
+.ProseMirror h1:hover::after {
+    content: "H1";
+    font-size: 0.65rem;
+    font-family: system-ui, sans-serif;
+    font-weight: 600;
+    color: var(--primary);
+    background: var(--border);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin-left: 8px;
+    vertical-align: middle;
+    pointer-events: none;
+}
+
+.ProseMirror h2:hover::after {
+    content: "H2";
+    font-size: 0.65rem;
+    font-family: system-ui, sans-serif;
+    font-weight: 600;
+    color: var(--primary);
+    background: var(--border);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin-left: 8px;
+    vertical-align: middle;
+    pointer-events: none;
+}
+
+.ProseMirror h3:hover::after {
+    content: "H3";
+    font-size: 0.65rem;
+    font-family: system-ui, sans-serif;
+    font-weight: 600;
+    color: var(--primary);
+    background: var(--border);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin-left: 8px;
+    vertical-align: middle;
+    pointer-events: none;
+}
+
+/* Paragraph spacing & line height */
+.ProseMirror p,
+.prose p {
+    margin-top: 1em;
+    margin-bottom: 1em;
+    line-height: 1.75;
+}
+
+/* Links */
+.ProseMirror a,
+.prose a {
+    color: var(--primary);
+    text-decoration: underline;
+    text-underline-offset: 4px;
+    font-weight: 500;
+    transition: color 0.2s ease, text-decoration-color 0.2s ease;
+}
+
+.ProseMirror a:hover,
+.prose a:hover {
+    color: var(--primary-hover);
+}
+
 /* Custom inline code */
-.ProseMirror code:not(pre code) {
+.ProseMirror code:not(pre code),
+.prose code:not(pre code) {
     background-color: var(--border);
     color: var(--primary);
     padding: 0.2em 0.4em;
     border-radius: 0.25rem;
+    font-size: 0.9em;
 }
 
 /* Tiptap Code Block Styles */
-.ProseMirror pre {
-    background-color: #0d1117; /* Highlighting code block with dark bg mostly looks better */
+.ProseMirror pre,
+.prose pre {
+    background-color: #0d1117;
     color: #c9d1d9;
     font-family: 'JetBrains Mono', 'Fira Code', monospace;
     padding: 1rem;
@@ -32,7 +143,8 @@
     margin: 1.5rem 0;
 }
 
-.ProseMirror pre code {
+.ProseMirror pre code,
+.prose pre code {
     color: inherit;
     padding: 0;
     background: none;
@@ -41,37 +153,48 @@
 
 /* Custom Lists and Blockquotes */
 .ProseMirror ul,
-.ProseMirror ol {
-    padding: 0 1.25rem;
-    margin: 1.25rem 0;
+.prose ul,
+.ProseMirror ol,
+.prose ol {
+    padding-left: 1.5rem;
+    margin-top: 1em;
+    margin-bottom: 1em;
 }
 
-.ProseMirror ul {
+.ProseMirror ul,
+.prose ul {
     list-style-type: disc;
 }
 
-.ProseMirror ol {
+.ProseMirror ol,
+.prose ol {
     list-style-type: decimal;
 }
 
 .ProseMirror ul p,
-.ProseMirror ol p {
+.prose ul p,
+.ProseMirror ol p,
+.prose ol p {
     margin-top: 0.25em;
     margin-bottom: 0.25em;
 }
 
-.ProseMirror blockquote {
+.ProseMirror blockquote,
+.prose blockquote {
     padding-left: 1rem;
-    border-left: 3px solid var(--border);
+    border-left: 4px solid var(--primary);
     margin: 1.5rem 0;
     color: var(--text-secondary);
     font-style: italic;
 }
 
-.ProseMirror img {
+.ProseMirror img,
+.prose img {
     max-width: 100%;
     height: auto;
     border-radius: 0.5rem;
+    margin-top: 1.5em;
+    margin-bottom: 1.5em;
 }
 
 /* Image alignment via text-align attribute injected by Tiptap */

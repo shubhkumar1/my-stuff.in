@@ -62,6 +62,16 @@ const MenuBar = ({ editor }: { editor: Editor | null }) => {
 
   if (!editor) return null
   
+  const getHeadingValue = () => {
+    if (editor.isActive('heading', { level: 1 })) return "1";
+    if (editor.isActive('heading', { level: 2 })) return "2";
+    if (editor.isActive('heading', { level: 3 })) return "3";
+    if (editor.isActive('heading', { level: 4 })) return "4";
+    if (editor.isActive('heading', { level: 5 })) return "5";
+    if (editor.isActive('heading', { level: 6 })) return "6";
+    return "0";
+  };
+
   const buttonClass = "inline-flex items-center justify-center w-8 h-8 text-text-secondary bg-transparent border-none rounded cursor-pointer hover:bg-black/5 dark:hover:bg-white/10 transition-colors";
   const activeButtonClass = "inline-flex items-center justify-center w-8 h-8 text-primary bg-primary/10 border-none rounded cursor-pointer transition-colors";
   const dividerClass = "w-[1px] bg-border self-stretch mx-2 my-1";
@@ -73,18 +83,23 @@ const MenuBar = ({ editor }: { editor: Editor | null }) => {
         
         <div className={dividerClass}></div>
 
-        <select onChange={e => {
+        <select 
+          value={getHeadingValue()}
+          onChange={e => {
             const value = e.target.value;
             if (value === "0") editor.chain().focus().setParagraph().run();
             else {
                 const level = parseInt(value) as 1 | 2 | 3 | 4 | 5 | 6;
                 editor.chain().focus().toggleHeading({ level }).run();
             }
-        }} className="border border-border bg-background text-foreground rounded px-2 py-1 outline-none focus:border-primary text-sm cursor-pointer">
+          }} 
+          className="border border-border bg-background text-foreground rounded px-2 py-1 outline-none focus:border-primary text-sm cursor-pointer font-medium"
+          title="Current Text Block Type"
+        >
             <option value="0">Paragraph</option>
-            <option value="1">H1</option>
-            <option value="2">H2</option>
-            <option value="3">H3</option>
+            <option value="1">H1 - Heading 1</option>
+            <option value="2">H2 - Heading 2</option>
+            <option value="3">H3 - Heading 3</option>
         </select>
         
         <div className={dividerClass}></div>
@@ -146,6 +161,9 @@ const TiptapEditor = ({ content, onChange, editable = true }: { content: string,
     content: content,
     onUpdate: ({ editor }) => {
       onChange(editor.getHTML());
+    },
+    onSelectionUpdate: () => {
+      setTrigger(prev => prev + 1);
     },
     onTransaction: () => {
       // Force a re-render so the menu bar buttons update their active states

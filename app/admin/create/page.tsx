@@ -89,7 +89,7 @@ const CreateBlogPage = () => {
                     </div>
 
                     <h2 className="text-2xl font-bold mb-4 text-foreground">Content Preview</h2>
-                    <article className="prose prose-lg dark:prose-invert mx-auto text-foreground">
+                    <article className="ProseMirror prose prose-lg dark:prose-invert mx-auto text-foreground">
                         <h1>{title}</h1>
                         <div dangerouslySetInnerHTML={{ __html: content }} />
                     </article>
