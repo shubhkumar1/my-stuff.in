@@ -3,8 +3,11 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import TiptapEditor from "@/components/TiptapEditor";
+import FaqEditor from "@/components/FaqEditor";
+import AuthorSchemaEditor from "@/components/AuthorSchemaEditor";
 import { generateSlug } from "@/lib/utils";
 import BlogCard from "@/components/BlogCard"; // For preview
+import { FAQItem } from "@/types";
 
 const CreateBlogPage = () => {
     const router = useRouter();
@@ -15,6 +18,10 @@ const CreateBlogPage = () => {
     const [coverImageAlt, setCoverImageAlt] = useState("");
     const [mood, setMood] = useState("Tech");
     const [content, setContent] = useState("");
+    const [faqs, setFaqs] = useState<FAQItem[]>([]);
+    const [authorName, setAuthorName] = useState("Shubham Kumar");
+    const [authorType, setAuthorType] = useState<"Person" | "Organization">("Person");
+    const [authorUrl, setAuthorUrl] = useState("");
     const [showPreview, setShowPreview] = useState(false);
     const [loading, setLoading] = useState(false);
 
@@ -26,6 +33,22 @@ const CreateBlogPage = () => {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
+
+        // FAQ Validation
+        for (let i = 0; i < faqs.length; i++) {
+            if (!faqs[i].question.trim() || !faqs[i].answer.trim()) {
+                alert(`FAQ item #${i + 1} has an empty question or answer. Please complete both fields or remove the item.`);
+                return;
+            }
+        }
+
+        if (faqs.length === 1) {
+            const proceed = confirm(
+                "Notice: FAQPage schema typically requires at least 2 Q&A entries for search engines to present rich results. Are you sure you want to proceed with 1 item?"
+            );
+            if (!proceed) return;
+        }
+
         setLoading(true);
 
         try {
@@ -40,6 +63,10 @@ const CreateBlogPage = () => {
                     coverImage,
                     coverImageAlt,
                     mood,
+                    faqs,
+                    authorName,
+                    authorType,
+                    authorUrl,
                 }),
             });
 
@@ -168,6 +195,17 @@ const CreateBlogPage = () => {
                         <label className="block text-sm font-medium mb-1 text-text-secondary">Content</label>
                         <TiptapEditor content={content} onChange={setContent} />
                     </div>
+
+                    <FaqEditor faqs={faqs} onChange={setFaqs} />
+
+                    <AuthorSchemaEditor
+                        authorName={authorName}
+                        onChangeAuthorName={setAuthorName}
+                        authorType={authorType}
+                        onChangeAuthorType={setAuthorType}
+                        authorUrl={authorUrl}
+                        onChangeAuthorUrl={setAuthorUrl}
+                    />
 
                     <button
                         type="submit"

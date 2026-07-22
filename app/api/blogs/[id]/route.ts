@@ -63,7 +63,7 @@ export async function PUT(
         }
 
         const { id } = await params;
-        const { title, slug, excerpt, content, coverImage, coverImageAlt, mood } = await req.json();
+        const { title, slug, excerpt, content, coverImage, coverImageAlt, mood, faqs, authorName, authorType, authorUrl } = await req.json();
 
         await connectDB();
         const updatedBlog = await Blog.findByIdAndUpdate(
@@ -76,6 +76,10 @@ export async function PUT(
                 coverImage,
                 coverImageAlt,
                 mood,
+                faqs: faqs || [],
+                authorName: authorName || "Shubham Kumar",
+                authorType: authorType || "Person",
+                authorUrl: authorUrl || "",
                 readingTime: `${Math.ceil(content.split(" ").length / 200)} min read`,
             },
             { new: true }

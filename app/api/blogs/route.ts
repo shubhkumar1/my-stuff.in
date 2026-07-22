@@ -13,7 +13,7 @@ export async function POST(req: Request) {
         }
 
         const body = await req.json();
-        const { title, slug, excerpt, content, coverImage, coverImageAlt, mood } = body;
+        const { title, slug, excerpt, content, coverImage, coverImageAlt, mood, faqs, authorName, authorType, authorUrl } = body;
 
         await connectDB();
 
@@ -33,6 +33,10 @@ export async function POST(req: Request) {
             coverImage,
             coverImageAlt,
             mood,
+            faqs: faqs || [],
+            authorName: authorName || "Shubham Kumar",
+            authorType: authorType || "Person",
+            authorUrl: authorUrl || "",
             author: session.user.id,
             readingTime: `${Math.ceil(content.split(" ").length / 200)} min read`,
         });

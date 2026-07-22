@@ -1,5 +1,13 @@
 import mongoose, { Schema, model, models } from "mongoose";
 
+const FAQSchema = new Schema(
+    {
+        question: { type: String, required: true },
+        answer: { type: String, required: true },
+    },
+    { _id: false }
+);
+
 const BlogSchema = new Schema(
     {
         title: { type: String, required: true },
@@ -15,7 +23,11 @@ const BlogSchema = new Schema(
         },
         readingTime: { type: String }, // e.g. "3 min read"
         author: { type: Schema.Types.ObjectId, ref: "User" },
+        authorName: { type: String, default: "Shubham Kumar" },
+        authorType: { type: String, enum: ["Person", "Organization"], default: "Person" },
+        authorUrl: { type: String, default: "" },
         likes: { type: [String], default: [] },
+        faqs: { type: [FAQSchema], default: [] },
     },
     { timestamps: true }
 );

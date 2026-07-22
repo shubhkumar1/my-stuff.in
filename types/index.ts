@@ -1,3 +1,8 @@
+export interface FAQItem {
+    question: string;
+    answer: string;
+}
+
 export interface BlogPost {
     _id: string;
     title: string;
@@ -9,9 +14,15 @@ export interface BlogPost {
     mood: "Tech" | "Finance" | "Health" | "Mindset";
     readingTime?: string;
     createdAt: string;
+    updatedAt?: string;
     author?: {
         name: string;
         image: string;
     };
+    authorName?: string;
+    authorType?: "Person" | "Organization";
+    authorUrl?: string;
     likes?: string[];
+    faqs?: FAQItem[];
 }
+
