@@ -9,7 +9,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const blogs = await Blog.find({}, "slug updatedAt").lean();
 
     const blogEntries: MetadataRoute.Sitemap = blogs.map((blog: any) => ({
-        url: `${siteUrl}/blog/${blog.slug}`,
+        url: `${siteUrl}/${blog.slug}`,
         lastModified: new Date(blog.updatedAt),
         changeFrequency: "weekly",
         priority: 0.7,

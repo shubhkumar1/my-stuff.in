@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import connectDB from "@/lib/db";
 import Blog from "@/models/Blog";
+import Comment from "@/models/Comment";
 import { getServerSession } from "next-auth";
 import { authOptions } from "../auth/[...nextauth]/route";
 
@@ -53,9 +54,28 @@ export async function POST(req: Request) {
 export async function GET(req: Request) {
     try {
         await connectDB();
-        const blogs = await Blog.find().sort({ createdAt: -1 }).populate("author", "name image");
-        return NextResponse.json(blogs);
+        const blogs = await Blog.find().sort({ createdAt: -1 }).populate("author", "name image").lean();
+        
+        // Aggregate comment counts for each blog
+        const commentCounts = await Comment.aggregate([
+            { $group: { _id: "$blog", count: { $sum: 1 } } }
+        ]);
+
+        const commentCountMap = new Map(
+            commentCounts.map((item) => [
+                item._id ? item._id.toString() : "",
+                item.count
+            ])
+        );
+
+        const blogsWithCounts = blogs.map((blog: any) => ({
+            ...blog,
+            commentsCount: commentCountMap.get(blog._id.toString()) || 0
+        }));
+
+        return NextResponse.json(blogsWithCounts);
     } catch (error) {
+        console.error("Failed to fetch blogs in GET /api/blogs:", error);
         return NextResponse.json(
             { error: "Failed to fetch blogs" },
             { status: 500 }

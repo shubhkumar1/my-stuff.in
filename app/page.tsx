@@ -29,7 +29,7 @@ export default async function Home() {
 
   const featuredTitle = featuredBlog ? featuredBlog.title : "Clear Your Mind: The Power of 10-Minute Daily Journaling";
   const featuredExcerpt = featuredBlog ? featuredBlog.excerpt : "Why writing down your thoughts for just ten minutes every morning can completely transform your mental focus, calm, and overall productivity throughout the day.";
-  const featuredSlug = featuredBlog ? `/blog/${featuredBlog.slug}` : "#explore-blogs";
+  const featuredSlug = featuredBlog ? `/${featuredBlog.slug}` : "#explore-blogs";
 
   return (
     <main className="min-h-screen relative overflow-hidden bg-background">

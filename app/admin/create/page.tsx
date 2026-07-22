@@ -71,7 +71,7 @@ const CreateBlogPage = () => {
             });
 
             if (res.ok) {
-                router.push("/blog/" + slug);
+                router.push("/" + slug);
             } else {
                 alert("Failed to create blog");
             }

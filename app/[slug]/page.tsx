@@ -32,12 +32,15 @@ export async function generateMetadata({ params }: BlogPageProps): Promise<Metad
     const blog = await getBlog(slug);
     if (!blog) return {};
 
-    const postUrl = `${siteUrl}/blog/${blog.slug}`;
+    const postUrl = `${siteUrl}/${blog.slug}`;
 
     return {
         metadataBase: siteUrl ? new URL(siteUrl) : null,
         title: blog.title,
         description: blog.excerpt,
+        alternates: {
+            canonical: `/${blog.slug}`,
+        },
         openGraph: {
             title: blog.title,
             description: blog.excerpt,
@@ -85,11 +88,11 @@ export default async function BlogPage({ params }: BlogPageProps) {
     return (
         <>
             <ReadingProgress />
-            <JsonLd post={blog} url={`${siteUrl}/blog/${blog.slug}`} />
+            <JsonLd post={blog} url={`${siteUrl}/${blog.slug}`} />
 
             <article className="min-h-screen pb-20 bg-background">
                 {/* Header */}
-                <div className={`w-full h-[60vh] relative flex items-center justify-center text-center px-6 bg-gradient-to-br ${accentColor} text-white overflow-hidden`}>
+                <div className={`w-full h-[70vh] relative flex items-center justify-center text-center px-6 bg-gradient-to-br ${accentColor} text-white overflow-hidden`}>
                     {blog.coverImage && (
                         <Image src={blog.coverImage} fill alt={blog.coverImageAlt || blog.title} className="object-cover mix-blend-overlay opacity-50 z-0" />
                     )}
@@ -110,7 +113,7 @@ export default async function BlogPage({ params }: BlogPageProps) {
                 </div>
 
                 <div className="max-w-3xl mx-auto px-6 -mt-20 relative z-20">
-                    <div className="bg-card p-8 md:p-12 rounded-2xl shadow-xl border border-border">
+                    <div className="bg-card p-5 md:p-12 rounded-2xl shadow-xl border border-border">
                         <div
                             className="ProseMirror prose prose-lg dark:prose-invert max-w-none font-serif prose-headings:font-bold prose-headings:text-foreground prose-p:text-text-secondary prose-a:text-primary"
                             dangerouslySetInnerHTML={{ __html: blog.content }}

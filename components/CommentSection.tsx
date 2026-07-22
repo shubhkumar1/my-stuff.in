@@ -85,7 +85,7 @@ const CommentSection = ({ blogId }: CommentSectionProps) => {
 
     return (
         <div className="mt-12 pt-8 border-t border-border">
-            <h3 className="text-2xl font-bold mb-6 font-serif text-foreground">Comments ({comments.length})</h3>
+            <h3 className="text-2xl font-bold mb-6 font-serif text-foreground">Comments</h3>
 
             {session ? (
                 <form onSubmit={handleSubmit} className="mb-8">

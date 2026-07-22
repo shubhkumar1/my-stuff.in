@@ -63,7 +63,7 @@ const LikeButton = ({ blogId, initialLikes = 0, hasLiked = false }: LikeButtonPr
                 }`}
         >
             {liked ? <FaHeart /> : <FaRegHeart />}
-            <span className="font-medium">{likes} Likes</span>
+            <span className="font-medium">{liked ? "Liked" : "Like"}</span>
         </button>
     );
 };

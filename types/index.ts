@@ -23,6 +23,7 @@ export interface BlogPost {
     authorType?: "Person" | "Organization";
     authorUrl?: string;
     likes?: string[];
+    commentsCount?: number;
     faqs?: FAQItem[];
 }
 

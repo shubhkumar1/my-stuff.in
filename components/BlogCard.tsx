@@ -28,7 +28,7 @@ const BlogCard = ({ post, index }: BlogCardProps) => {
             whileHover={{ y: -5 }}
             className="bg-card border border-border rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-shadow duration-300"
         >
-            <Link href={`/blog/${post.slug}`} className="block h-full flex flex-col">
+            <Link href={`/${post.slug}`} className="block h-full flex flex-col">
                 {post.coverImage && (
                     <div className="relative h-48 w-full overflow-hidden">
                         <Image

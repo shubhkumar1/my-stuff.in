@@ -29,6 +29,9 @@ export const metadata: Metadata = {
     template: "%s | Mind-Stuff Blog",
   },
   description: "Tired of a noisy mind? Get simple tips on focus, money, health & AI tools. Clear your head, read one post at a time.",
+  alternates: {
+    canonical: "/",
+  },
   openGraph: {
     title: "Mind-Stuff Blog",
     description: "Tired of a noisy mind? Get simple tips on focus, money, health & AI tools. Clear your head, read one post at a time.",

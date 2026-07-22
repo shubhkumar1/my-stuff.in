@@ -79,13 +79,14 @@ export default function AdminDashboard() {
                                     <th className="p-6 font-semibold">Title</th>
                                     <th className="p-6 font-semibold">Mood</th>
                                     <th className="p-6 font-semibold">Date</th>
+                                    <th className="p-6 font-semibold text-center">Total Count</th>
                                     <th className="p-6 font-semibold text-right">Actions</th>
                                 </tr>
                             </thead>
                             <tbody className="divide-y divide-border">
                                 {blogs.length === 0 ? (
                                     <tr>
-                                        <td colSpan={4} className="p-10 text-center text-gray-500 dark:text-gray-400">
+                                        <td colSpan={5} className="p-10 text-center text-gray-500 dark:text-gray-400">
                                             No blog posts found. Create your first one!
                                         </td>
                                     </tr>
@@ -93,9 +94,14 @@ export default function AdminDashboard() {
                                     blogs.map((blog) => (
                                         <tr key={blog._id} className="hover:bg-background transition-colors group">
                                             <td className="p-6">
-                                                <Link href={`/blog/${blog.slug}`} className="font-medium text-foreground hover:text-primary transition">
-                                                    {blog.title}
-                                                </Link>
+                                                <div className="flex flex-col">
+                                                    <Link href={`/${blog.slug}`} className="font-medium text-foreground hover:text-primary transition">
+                                                        {blog.title}
+                                                    </Link>
+                                                    <span className="text-xs text-text-secondary mt-1 sm:hidden">
+                                                        Total: {(blog.likes?.length || 0) + (blog.commentsCount || 0)} ({(blog.likes?.length || 0)} L / {(blog.commentsCount || 0)} C)
+                                                    </span>
+                                                </div>
                                             </td>
                                             <td className="p-6">
                                                 <span className="inline-block px-3 py-1 rounded-full text-xs font-medium bg-background text-text-secondary border border-border">
@@ -105,10 +111,20 @@ export default function AdminDashboard() {
                                             <td className="p-6 text-text-secondary text-sm">
                                                 {format(new Date(blog.createdAt), "MMM d, yyyy")}
                                             </td>
+                                            <td className="p-6 text-center">
+                                                <div className="inline-flex flex-col items-center">
+                                                    <span className="font-semibold text-foreground">
+                                                        {(blog.likes?.length || 0) + (blog.commentsCount || 0)}
+                                                    </span>
+                                                    <span className="text-xs text-text-secondary">
+                                                        ({blog.likes?.length || 0} L / {blog.commentsCount || 0} C)
+                                                    </span>
+                                                </div>
+                                            </td>
                                             <td className="p-6 text-right">
                                                 <div className="flex items-center justify-end gap-3 opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity">
                                                     <Link
-                                                        href={`/blog/${blog.slug}`}
+                                                        href={`/${blog.slug}`}
                                                         target="_blank"
                                                         className="p-2 text-text-secondary hover:text-primary transition"
                                                         title="View"
