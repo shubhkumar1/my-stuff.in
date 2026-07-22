@@ -93,13 +93,15 @@ export default async function BlogPage({ params }: BlogPageProps) {
             <article className="min-h-screen pb-20 bg-background">
                 {/* Header */}
                 <div className={`w-full h-[70vh] relative flex items-center justify-center text-center px-6 bg-gradient-to-br ${accentColor} text-white overflow-hidden`}>
-                    {blog.coverImage && (
+                    
+                    {/* {blog.coverImage && (
                         <Image src={blog.coverImage} fill alt={blog.coverImageAlt || blog.title} className="object-cover mix-blend-overlay opacity-50 z-0" />
-                    )}
+                    )} */}
+
                     <div className="absolute inset-0 bg-black/30 z-[1]" />
                     <div className="relative z-10 max-w-4xl">
                         <div className="inline-block px-3 py-1 bg-white/20 backdrop-blur-md rounded-full text-sm font-medium mb-4 border border-white/30">
-                            {blog.mood} Mood
+                            {blog.mood}
                         </div>
                         <h1 className="text-4xl md:text-6xl font-serif font-bold mb-6 leading-tight">
                             {blog.title}
@@ -112,7 +114,7 @@ export default async function BlogPage({ params }: BlogPageProps) {
                     </div>
                 </div>
 
-                <div className="max-w-3xl mx-auto px-6 -mt-20 relative z-20">
+                <div className="max-w-3xl mx-auto px-2 -mt-20 relative z-20">
                     <div className="bg-card p-5 md:p-12 rounded-2xl shadow-xl border border-border">
                         <div
                             className="ProseMirror prose prose-lg dark:prose-invert max-w-none font-serif prose-headings:font-bold prose-headings:text-foreground prose-p:text-text-secondary prose-a:text-primary"
