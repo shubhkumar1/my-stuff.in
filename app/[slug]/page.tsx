@@ -117,7 +117,7 @@ export default async function BlogPage({ params }: BlogPageProps) {
                 <div className="max-w-3xl mx-auto px-2 -mt-20 relative z-20">
                     <div className="bg-card p-5 md:p-12 rounded-2xl shadow-xl border border-border">
                         <div
-                            className="ProseMirror prose prose-lg dark:prose-invert max-w-none font-serif prose-headings:font-bold prose-headings:text-foreground prose-p:text-text-secondary prose-a:text-primary"
+                            className="prose prose-lg dark:prose-invert max-w-none font-serif prose-headings:font-bold prose-headings:text-foreground prose-p:text-text-secondary prose-a:text-primary"
                             dangerouslySetInnerHTML={{ __html: blog.content }}
                         />
 

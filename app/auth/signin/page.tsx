@@ -5,10 +5,12 @@ import Image from "next/image";
 import { useSearchParams } from "next/navigation";
 import { FaGoogle } from "react-icons/fa";
 import { Suspense } from "react";
+import { useAuthLoading } from "@/components/Providers";
 
 function SignInContent() {
     const searchParams = useSearchParams();
     const callbackUrl = searchParams.get("callbackUrl") || "/";
+    const { setIsLoading } = useAuthLoading();
 
     return (
         <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-950 px-4">
@@ -24,7 +26,10 @@ function SignInContent() {
                     <p className="text-gray-500 dark:text-gray-400 mb-8">Sign in to access your account</p>
 
                     <button
-                        onClick={() => signIn("google", { callbackUrl })}
+                        onClick={() => {
+                            setIsLoading(true);
+                            signIn("google", { callbackUrl });
+                        }}
                         className="w-full flex items-center justify-center gap-3 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-200 border border-gray-300 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 font-medium py-3 px-4 rounded-lg transition duration-200"
                     >
                         <FaGoogle className="text-red-500 text-xl" />
@@ -47,7 +52,7 @@ export default function SignInPage() {
     return (
         <Suspense fallback={
             <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-950">
-                <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-teal-500"></div>
+                <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-primary"></div>
             </div>
         }>
             <SignInContent />

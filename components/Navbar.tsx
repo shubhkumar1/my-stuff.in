@@ -8,11 +8,13 @@ import { useTheme } from "next-themes";
 import { useState, useEffect } from "react";
 import { FaSun, FaMoon, FaUserCircle, FaSignOutAlt, FaBars, FaTimes } from "react-icons/fa";
 import { AnimatePresence, motion } from "framer-motion";
+import { useAuthLoading } from "@/components/Providers";
 
 const Navbar = () => {
     const pathname = usePathname();
     const { data: session } = useSession();
     const { theme, setTheme } = useTheme();
+    const { setIsLoading } = useAuthLoading();
     const [mounted, setMounted] = useState(false);
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
@@ -113,7 +115,10 @@ const Navbar = () => {
                                 <span className="text-sm font-medium text-foreground">{session.user?.name?.split(' ')[0]}</span>
                             </div>
                             <button
-                                onClick={() => signOut()}
+                                onClick={() => {
+                                    setIsLoading(true);
+                                    signOut();
+                                }}
                                 className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-red-600 bg-red-50 dark:bg-red-900/20 dark:text-red-300 rounded-lg hover:bg-red-100 dark:hover:bg-red-900/40 transition"
                             >
                                 <FaSignOutAlt />
@@ -123,13 +128,19 @@ const Navbar = () => {
                     ) : (
                         <div className="flex items-center gap-3">
                             <button
-                                onClick={() => signIn("google")}
+                                onClick={() => {
+                                    setIsLoading(true);
+                                    signIn("google");
+                                }}
                                 className="font-medium text-text-secondary hover:text-primary transition"
                             >
                                 Login
                             </button>
                             <button
-                                onClick={() => signIn("google")}
+                                onClick={() => {
+                                    setIsLoading(true);
+                                    signIn("google");
+                                }}
                                 className="px-4 py-2 bg-accent hover:bg-accent-hover text-white rounded-lg font-medium transition shadow-sm shadow-accent/30"
                             >
                                 Sign Up
@@ -226,7 +237,10 @@ const Navbar = () => {
                                                 </div>
                                             </div>
                                             <button
-                                                onClick={() => signOut()}
+                                                onClick={() => {
+                                                    setIsLoading(true);
+                                                    signOut();
+                                                }}
                                                 className="flex items-center justify-center gap-2 px-4 py-3 text-sm font-medium text-red-600 bg-red-50 dark:bg-red-900/20 dark:text-red-300 rounded-lg hover:bg-red-100 dark:hover:bg-red-900/40 transition w-full"
                                             >
                                                 <FaSignOutAlt />
@@ -236,13 +250,19 @@ const Navbar = () => {
                                     ) : (
                                         <div className="flex flex-col gap-3 mt-2">
                                             <button
-                                                onClick={() => signIn("google")}
+                                                onClick={() => {
+                                                    setIsLoading(true);
+                                                    signIn("google");
+                                                }}
                                                 className="w-full py-3 border border-border rounded-lg font-medium text-text-secondary hover:text-primary hover:border-primary transition"
                                             >
                                                 Login
                                             </button>
                                             <button
-                                                onClick={() => signIn("google")}
+                                                onClick={() => {
+                                                    setIsLoading(true);
+                                                    signIn("google");
+                                                }}
                                                 className="w-full py-3 bg-accent hover:bg-accent-hover text-white rounded-lg font-medium transition shadow-sm shadow-accent/30"
                                             >
                                                 Sign Up

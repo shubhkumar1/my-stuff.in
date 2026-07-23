@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { useSession, signIn } from "next-auth/react";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
+import { useAuthLoading } from "@/components/Providers";
 
 interface LikeButtonProps {
     blogId: string;
@@ -12,6 +13,7 @@ interface LikeButtonProps {
 
 const LikeButton = ({ blogId, initialLikes = 0, hasLiked = false }: LikeButtonProps) => {
     const { data: session } = useSession();
+    const { setIsLoading } = useAuthLoading();
     const [liked, setLiked] = useState(hasLiked);
     const [likes, setLikes] = useState(initialLikes);
 
@@ -25,6 +27,7 @@ const LikeButton = ({ blogId, initialLikes = 0, hasLiked = false }: LikeButtonPr
 
     const handleLike = async () => {
         if (!session) {
+            setIsLoading(true);
             signIn("google");
             return;
         }

@@ -56,7 +56,7 @@
 }
 
 /* Editor Heading Tag Badges on Hover & Focus */
-.ProseMirror h1:hover::after {
+.ProseMirror[contenteditable="true"] h1:hover::after {
     content: "H1";
     font-size: 0.65rem;
     font-family: system-ui, sans-serif;
@@ -70,7 +70,7 @@
     pointer-events: none;
 }
 
-.ProseMirror h2:hover::after {
+.ProseMirror[contenteditable="true"] h2:hover::after {
     content: "H2";
     font-size: 0.65rem;
     font-family: system-ui, sans-serif;
@@ -84,7 +84,7 @@
     pointer-events: none;
 }
 
-.ProseMirror h3:hover::after {
+.ProseMirror[contenteditable="true"] h3:hover::after {
     content: "H3";
     font-size: 0.65rem;
     font-family: system-ui, sans-serif;

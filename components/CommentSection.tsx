@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { useSession, signIn } from "next-auth/react";
 import { FaTrash } from "react-icons/fa";
+import { useAuthLoading } from "@/components/Providers";
 
 interface CommentSectionProps {
     blogId: string;
@@ -13,6 +14,7 @@ const CommentSection = ({ blogId }: CommentSectionProps) => {
     const [comments, setComments] = useState<any[]>([]);
     const [newComment, setNewComment] = useState("");
     const [loading, setLoading] = useState(true);
+    const { setIsLoading } = useAuthLoading();
 
     useEffect(() => {
         const fetchComments = async () => {
@@ -37,6 +39,7 @@ const CommentSection = ({ blogId }: CommentSectionProps) => {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         if (!session) {
+            setIsLoading(true);
             signIn("google");
             return;
         }
@@ -107,7 +110,10 @@ const CommentSection = ({ blogId }: CommentSectionProps) => {
             ) : (
                 <div className="bg-card border border-border p-6 rounded-xl text-center mb-8">
                     <p className="mb-4 text-text-secondary">Log in to join the conversation.</p>
-                    <button onClick={() => signIn("google")} className="px-6 py-2 bg-background border border-border rounded shadow-sm hover:bg-border text-foreground transition">
+                    <button onClick={() => {
+                        setIsLoading(true);
+                        signIn("google");
+                    }} className="px-6 py-2 bg-background border border-border rounded shadow-sm hover:bg-border text-foreground transition">
                         Sign in with Google
                     </button>
                 </div>
@@ -135,7 +141,7 @@ const CommentSection = ({ blogId }: CommentSectionProps) => {
                                     {comment.user?.name ? comment.user.name[0].toUpperCase() : "?"}
                                 </div>
                             )}
-                            <div className="flex-1">
+                            <div className="flex-1 pr-8">
                                 <div className="flex items-center gap-2">
                                     <h4 className="font-bold text-sm text-foreground">{comment.user?.name || "Anonymous"}</h4>
                                     <span className="text-xs text-text-secondary">
@@ -151,7 +157,7 @@ const CommentSection = ({ blogId }: CommentSectionProps) => {
                             {session?.user?.email && (session.user.email === comment.user?.email || session.user.role === "admin") && (
                                 <button
                                     onClick={() => handleDelete(comment._id)}
-                                    className="opacity-0 group-hover:opacity-100 absolute right-3 top-3 p-2 text-red-500 hover:text-red-700 dark:text-red-400 dark:hover:text-red-300 transition-all rounded hover:bg-red-50 dark:hover:bg-red-950/30"
+                                    className="opacity-100 md:opacity-0 md:group-hover:opacity-100 absolute right-3 top-3 p-2 text-red-500 hover:text-red-700 dark:text-red-400 dark:hover:text-red-300 transition-all rounded hover:bg-red-50 dark:hover:bg-red-950/30"
                                     title="Delete Comment"
                                 >
                                     <FaTrash size={14} />
