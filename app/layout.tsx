@@ -5,6 +5,8 @@ import "../prose-styles.css";
 import { Providers } from "@/components/Providers";
 import Navbar from "@/components/Navbar";
 import CustomCursor from "@/components/CustomCursor";
+import GoogleTag from "@/components/GoogleTag";
+
 
 const merriweather = Merriweather({
   weight: ["300", "400", "700", "900"],
@@ -78,6 +80,7 @@ export default function RootLayout({
       <body
         className={`${merriweather.variable} ${inter.variable} font-sans antialiased transition-colors duration-300 relative`}
       >
+        <GoogleTag />
         <CustomCursor />
         <Providers>
           <Navbar />
