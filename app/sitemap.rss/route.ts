@@ -30,6 +30,7 @@ export async function GET() {
         const postUrl = `${siteUrl}/${blog.slug}`;
         const pubDate = new Date(blog.createdAt || blog.updatedAt).toUTCString();
         const updatedDate = new Date(blog.updatedAt || blog.createdAt).toISOString();
+        const lastmod = new Date(blog.updatedAt || blog.createdAt).toISOString().split(".")[0] + "Z";
 
         return `
     <item>
@@ -38,13 +39,14 @@ export async function GET() {
       <guid isPermaLink="true">${escapeXml(postUrl)}</guid>
       <pubDate>${pubDate}</pubDate>
       <atom:updated>${updatedDate}</atom:updated>
+      <sitemap:lastmod>${lastmod}</sitemap:lastmod>
       <description>${escapeXml(blog.excerpt || "")}</description>
     </item>`;
       })
       .join("");
 
     const rssXml = `<?xml version="1.0" encoding="UTF-8" ?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:sitemap="http://sitemaps.org">
   <channel>
     <title>Mind-Stuff Blog</title>
     <link>${escapeXml(siteUrl)}</link>
