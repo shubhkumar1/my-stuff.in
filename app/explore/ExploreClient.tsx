@@ -47,14 +47,14 @@ export default function ExploreClient({ initialBlogs }: { initialBlogs: BlogPost
 
     return (
         <div className="max-w-7xl mx-auto px-6 sm:px-12 md:px-20 pt-24 pb-20">
-            <AnimatedSection className="mb-12">
+            <div className="mb-12">
                 <h1 className="text-4xl md:text-5xl font-black mb-6 text-foreground">
                     Explore <span className="text-primary">Blogs</span>
                 </h1>
                 <p className="text-xl text-text-secondary leading-relaxed max-w-3xl">
                     Discover thoughts, tutorials, and experiences categorised by how they felt when written.
                 </p>
-            </AnimatedSection>
+            </div>
 
             {/* Filters and Controls */}
             <AnimatedSection delay={0.1} className="mb-12 flex flex-col lg:flex-row gap-6 items-start lg:items-center justify-between bg-card/50 p-6 rounded-2xl border border-border backdrop-blur-sm">

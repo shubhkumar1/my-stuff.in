@@ -33,15 +33,15 @@ export default async function Home() {
 
   return (
     <main className="min-h-screen relative overflow-hidden bg-background">
-      {/* Abstract Background Blur Orbs */}
-      <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-primary/20 rounded-full blur-[120px] pointer-events-none" />
-      <div className="absolute top-[40%] right-[-10%] w-[40%] h-[50%] bg-accent/20 rounded-full blur-[120px] pointer-events-none" />
-      <div className="absolute bottom-[-10%] left-[20%] w-[30%] h-[30%] bg-primary/10 rounded-full blur-[120px] pointer-events-none" />
+      {/* Abstract Background Blur Orbs - optimized for mobile compositing */}
+      <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-primary/20 rounded-full blur-[40px] md:blur-[120px] pointer-events-none" />
+      <div className="absolute top-[40%] right-[-10%] w-[40%] h-[50%] bg-accent/20 rounded-full blur-[40px] md:blur-[120px] pointer-events-none" />
+      <div className="absolute bottom-[-10%] left-[20%] w-[30%] h-[30%] bg-primary/10 rounded-full blur-[40px] md:blur-[120px] pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-6 sm:px-12 md:px-20 pt-24 pb-20 relative z-10">
 
-        {/* HERO SECTION */}
-        <AnimatedSection className="min-h-[calc(100vh-11rem)] md:min-h-0 flex flex-col items-center justify-center text-center mb-12 max-w-4xl mx-auto">
+        {/* HERO SECTION - Static HTML for instant mobile FCP/LCP */}
+        <section className="min-h-[calc(100vh-11rem)] md:min-h-0 flex flex-col items-center justify-center text-center mb-12 max-w-4xl mx-auto">
           <div className="relative mb-8">
             {/* Soft Emerald Green gradient halo blur behind the Brain Emoji badge */}
             <div className="absolute inset-0 -m-8 bg-[#0F6E56]/20 dark:bg-[#5DCAA5]/25 rounded-full blur-[40px] pointer-events-none" />
@@ -64,7 +64,7 @@ export default async function Home() {
           >
             Start Reading <FaArrowRight />
           </Link>
-        </AnimatedSection>
+        </section>
 
         {/* INTRO SECTION ("Why This Blog?") */}
         <AnimatedSection delay={0.1} className="mb-22 max-w-4xl mx-auto">

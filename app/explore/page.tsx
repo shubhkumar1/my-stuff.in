@@ -26,9 +26,9 @@ export default async function ExplorePage() {
 
   return (
     <main className="min-h-screen relative overflow-hidden bg-background">
-      {/* Background blobs to match styles */}
-      <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-primary/10 rounded-full blur-[120px] pointer-events-none" />
-      <div className="absolute bottom-[20%] right-[-10%] w-[40%] h-[50%] bg-accent/10 rounded-full blur-[120px] pointer-events-none" />
+      {/* Background blobs to match styles - optimized for mobile */}
+      <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-primary/10 rounded-full blur-[40px] md:blur-[120px] pointer-events-none" />
+      <div className="absolute bottom-[20%] right-[-10%] w-[40%] h-[50%] bg-accent/10 rounded-full blur-[40px] md:blur-[120px] pointer-events-none" />
       
       <div className="relative z-10">
         <ExploreClient initialBlogs={allBlogs} />

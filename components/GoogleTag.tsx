@@ -1,6 +1,7 @@
 "use client";
 
 import { usePathname } from "next/navigation";
+import Script from "next/script";
 
 export default function GoogleTag() {
   const pathname = usePathname();
@@ -18,19 +19,19 @@ export default function GoogleTag() {
 
   return (
     <>
-      {/* Google tag (gtag.js) */}
-      <script async src={`https://www.googletagmanager.com/gtag/js?id=${trackingId}`} />
-      <script
-        dangerouslySetInnerHTML={{
-          __html: `
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-
-            gtag('config', '${trackingId}');
-          `,
-        }}
+      {/* Google tag (gtag.js) - Deferred to lazyOnload for mobile LCP performance */}
+      <Script
+        src={`https://www.googletagmanager.com/gtag/js?id=${trackingId}`}
+        strategy="lazyOnload"
       />
+      <Script id="google-analytics" strategy="lazyOnload">
+        {`
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', '${trackingId}');
+        `}
+      </Script>
     </>
   );
 }
