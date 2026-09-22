@@ -1,4 +1,5 @@
 import { notFound } from "next/navigation";
+import { cache } from "react";
 import Image from "next/image";
 import connectDB from "@/lib/db";
 import Blog from "@/models/Blog";
@@ -10,19 +11,32 @@ import CommentSection from "@/components/CommentSection";
 import { format } from "date-fns";
 import { BlogPost } from "@/types";
 import { Metadata } from "next";
-import { getServerSession } from "next-auth";
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 
 interface BlogPageProps {
     params: Promise<{ slug: string }>;
 }
 
-async function getBlog(slug: string) {
+export const revalidate = 60; // Revalidate every minute (ISR)
+
+export async function generateStaticParams() {
+    try {
+        await connectDB();
+        const blogs = await Blog.find({}, { slug: 1 }).lean();
+        return blogs.map((blog) => ({
+            slug: blog.slug,
+        }));
+    } catch (error) {
+        console.error("Failed to generate static params:", error);
+        return [];
+    }
+}
+
+const getBlog = cache(async (slug: string) => {
     await connectDB();
     const blog = await Blog.findOne({ slug }).populate("author", "name image").lean();
     if (!blog) return null;
     return JSON.parse(JSON.stringify(blog)) as BlogPost;
-}
+});
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "";
 const ogImageUrl = siteUrl ? `${siteUrl}/OG.jpg` : "/OG.jpg";
@@ -74,8 +88,6 @@ export default async function BlogPage({ params }: BlogPageProps) {
         notFound();
     }
 
-    const session = await getServerSession(authOptions);
-
     const moodColors = {
         Mindset: "from-purple-500 to-purple-600",
         Finance: "from-emerald-500 to-emerald-600",
@@ -125,7 +137,7 @@ export default async function BlogPage({ params }: BlogPageProps) {
                             <LikeButton 
                                 blogId={blog._id} 
                                 initialLikes={blog.likes?.length || 0}
-                                hasLiked={session?.user?.email ? (blog.likes?.includes(session.user.email) || false) : false}
+                                userLikes={blog.likes || []}
                             />
                             <div className="flex gap-2">
                                 {/* Share buttons placeholder */}

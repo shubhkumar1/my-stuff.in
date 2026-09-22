@@ -11,44 +11,26 @@ export const authOptions: NextAuthOptions = {
         }),
     ],
     callbacks: {
-        async signIn({ user, account, profile }) {
-            console.log("---- SIGNIN CALLBACK START ----");
-            console.log("NEXTAUTH_URL:", process.env.NEXTAUTH_URL);
-
+        async signIn({ user, account }) {
             if (account?.provider === "google") {
                 try {
                     const { email, name, image } = user;
-                    console.log(`Attempting to sign in user: ${email}`);
-
-                    // Connect to DB
-                    console.log("Connecting to MongoDB...");
                     await connectDB();
-                    console.log("Connected to MongoDB.");
-
-                    // Check if user exists
-                    console.log("Finding user in DB...");
                     let dbUser = await User.findOne({ email });
 
                     if (!dbUser) {
-                        console.log("User not found. Creating new user...");
                         const isAdmin = email === process.env.NEXT_PUBLIC_ADMIN_EMAIL;
-
                         dbUser = await User.create({
                             name,
                             email,
                             image,
                             role: isAdmin ? "admin" : "user",
                         });
-                        console.log("User created:", dbUser);
-                    } else {
-                        console.log("User found:", dbUser);
                     }
 
-                    console.log("---- SIGNIN CALLBACK SUCCESS ----");
                     return true;
                 } catch (error) {
-                    console.error("---- SIGNIN CALLBACK ERROR ----");
-                    console.error(error);
+                    console.error("NextAuth signIn callback error:", error);
                     return false;
                 }
             }
@@ -75,7 +57,7 @@ export const authOptions: NextAuthOptions = {
         error: "/auth/signin", // Redirect to signin on error
     },
     secret: process.env.NEXTAUTH_SECRET,
-    debug: true, // Enable NextAuth debug mode
+    debug: process.env.NODE_ENV === "development",
 };
 
 const handler = NextAuth(authOptions);

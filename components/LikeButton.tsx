@@ -9,17 +9,22 @@ interface LikeButtonProps {
     blogId: string;
     initialLikes?: number;
     hasLiked?: boolean;
+    userLikes?: string[];
 }
 
-const LikeButton = ({ blogId, initialLikes = 0, hasLiked = false }: LikeButtonProps) => {
+const LikeButton = ({ blogId, initialLikes = 0, hasLiked = false, userLikes = [] }: LikeButtonProps) => {
     const { data: session } = useSession();
     const { setIsLoading } = useAuthLoading();
     const [liked, setLiked] = useState(hasLiked);
     const [likes, setLikes] = useState(initialLikes);
 
     useEffect(() => {
-        setLiked(hasLiked);
-    }, [hasLiked]);
+        if (session?.user?.email && Array.isArray(userLikes) && userLikes.length > 0) {
+            setLiked(userLikes.includes(session.user.email));
+        } else {
+            setLiked(hasLiked);
+        }
+    }, [session, hasLiked, userLikes]);
 
     useEffect(() => {
         setLikes(initialLikes);
